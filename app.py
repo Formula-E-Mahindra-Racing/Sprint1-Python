@@ -3,7 +3,7 @@ from sys_functions import sys_dados
 
 nome_da_empresa = "Mahindra Racing"
 lista_menu_opcao = ['1', '2', '3', '0']
-lista_praias = ["Maresias", "Juquehy", "Ubatuba"]
+lista_praias = ["Monaco", "Anhembi", "Paris"]
 
 while True:
     print(f"Seja bem-vindo à {nome_da_empresa}!!!")
