@@ -3,7 +3,6 @@ from sys_functions import sys_dados
 
 nome_da_empresa = "Mahindra Racing"
 lista_menu_opcao = ['1', '2', '3', '0']
-lista_praias = ["Monaco", "Anhembi", "Paris"]
 
 while True:
     print(f"Seja bem-vindo à {nome_da_empresa}!!!")
@@ -24,6 +23,6 @@ while True:
     elif caminho == '3':
         # Johnny's Part (Loja)
         print(f"Bem-vindo à loja {nome_da_empresa},\n... ")
-        #Função do sistema da loja
+        # Função do sistema da loja
     elif caminho == '0':
         break
