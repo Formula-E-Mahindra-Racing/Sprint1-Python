@@ -1,5 +1,6 @@
 from helpers import forca_opcao, limpar_tela
 from sys_functions import sys_dados
+from shop import loja 
 
 nome_da_empresa = "Mahindra Racing"
 lista_menu_opcao = ['1', '2', '3', '0']
@@ -21,8 +22,6 @@ while True:
               f"capturados pelos nossos sensores e muito mais!\n")
         sys_dados()
     elif caminho == '3':
-        # Johnny's Part (Loja)
-        print(f"Bem-vindo à loja {nome_da_empresa},\n... ")
-        # Função do sistema da loja
+        loja()
     elif caminho == '0':
         break
