@@ -1,6 +1,7 @@
 # Formula-themed games
 import random
 
+
 def game_forca():
     word = "MAHINDRA"
     guessed = ["_"] * len(word)
@@ -23,6 +24,7 @@ def game_forca():
     print("Game over! The word was", word)
     return False
 
+
 def game_adivinhe_numero():
     number = random.randint(1, 100)  # a random number
     print("Welcome to Formula Guess!")
@@ -36,16 +38,19 @@ def game_adivinhe_numero():
         else:
             print("Too high! Try again.")
 
+
 def game_complete_frase():
     frase = "CHECKED"
     print("Welcome to Formula Phrase!")
     while True:
-        guess = input("Complete the phrase: 'In the final lap, the ... flag waves'\n--> ").upper()
+        guess = input(
+            "Complete the phrase: 'In the final lap, the ... flag waves'\n--> ").upper()
         if guess == frase:
             print("You won! The phrase was 'In the final lap, the checked flag waves'")
             return True
         else:
             print("Oops, try again!")
+
 
 games = {
     "1": {"name": "Formula Forca", "game": game_forca},
@@ -53,23 +58,26 @@ games = {
     "3": {"name": "Formula Phrase", "game": game_complete_frase},
 }
 
-while True:
-    print("Choose a game:")
-    for key, game in games.items():
-        print(f"{key}. {game['name']}")
-    choice = input("Enter the number of your choice: ")
-    if choice in games:
-        if games[choice]["game"]():
-            play_again = input("Do you want to play again? (y/n): ")
-            if play_again.lower() == "y":
-                continue
+
+def games_menu():
+    while True:
+        print("Choose a game:")
+        for key, game in games.items():
+            print(f"{key}. {game['name']}")
+        choice = input("Enter the number of your choice: ")
+        if choice in games:
+            if games[choice]["game"]():
+                play_again = input("Do you want to play again? (y/n): ")
+                if play_again.lower() == "y":
+                    continue
+                else:
+                    break
             else:
-                break
+                play_again = input("Do you want to play again? (y/n): ")
+                if play_again.lower() == "y":
+                    continue
+                else:
+                    break
         else:
-            play_again = input("Do you want to play again? (y/n): ")
-            if play_again.lower() == "y":
-                continue
-            else:
-                break
-    else:
-        print("Invalid choice. Try again!")
+            print("Invalid choice. Try again!")
+    return
