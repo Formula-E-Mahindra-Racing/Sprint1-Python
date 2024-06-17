@@ -26,7 +26,7 @@ Um app em Python, feito para a Mahindra Racing/Tech Mahindra, que dá ao usuári
  
 <br>
 
-## Explicando o <a href="path">Código</a> 🧑‍💻
+## Explicando o <a href="https://github.com/Formula-E-Mahindra-Racing/Sprint1-Python/blob/main/helpers.py">Código</a> 🧑‍💻
  
 ```c
 def limpar_tela(linhas=20):
@@ -139,7 +139,7 @@ Se line_break é `True`, adiciona uma nova linha após cada elemento. Caso contr
 Retorno: A string formatada com as opções.
 <hr>
 
-## Explicando o <a href="path">Código</a> 🧑‍💻
+## Explicando o <a href="https://github.com/Formula-E-Mahindra-Racing/Sprint1-Python/blob/main/app.py">Código</a> 🧑‍💻
 
 ```c
 from helpers import forca_opcao, limpar_tela
@@ -196,7 +196,7 @@ Dependendo da escolha do usuário, uma das três funções é chamada: Jogos: `g
 Se a escolha for '0', o loop é interrompido e o programa termina.
 <hr>
 
-## Explicando o <a href="path">Código</a> 🧑‍💻
+## Explicando o <a href="https://github.com/Formula-E-Mahindra-Racing/Sprint1-Python/blob/main/games.py">Código</a> 🧑‍💻
 
 Essa seção implementa três mini-games temáticos.
 
@@ -334,7 +334,7 @@ Loop Principal:
 </ul>
 <hr>
 
-## Explicando o <a href="path">Código</a> 🧑‍💻
+## Explicando o <a href="https://github.com/Formula-E-Mahindra-Racing/Sprint1-Python/blob/main/sys_functions.py">Código</a> 🧑‍💻
 
 Essa seção implementa um sistema de exibição de dados sobre os circuitos e pilotos.
 
@@ -476,7 +476,7 @@ Loop Principal:
 </ul>
 <hr>
 
-## Explicando o <a href="path">Código</a> 🧑‍💻
+## Explicando o <a href="https://github.com/Formula-E-Mahindra-Racing/Sprint1-Python/blob/main/shop.py">Código</a> 🧑‍💻
 
 Essa seção implementa uma loja virtual para a equipe Mahindra Racing, onde os usuários podem comprar itens como canecas, camisetas e ingressos usando a moeda virtual Mahindra Coins (MC). 
 <br>
