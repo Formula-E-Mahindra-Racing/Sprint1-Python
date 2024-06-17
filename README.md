@@ -13,7 +13,7 @@
 O arquivo ```app.py``` é o arquivo principal que deve ser rodado e é recomendado usar o terminal no tamanho 75% ou tela cheia.
 
 ## Explicação do Projeto 📖
-
+Um app em Python, feito para a Mahindra Racing/Tech Mahindra, que dá ao usuário escolhas de seção onde há uma seção de games, uma seção de dados capturados pelos sensores que é escolhida o circuito desejado no qual haverá duas opções de display das informações sendo uma "opções detalhadas" com todas os resultados encontrados para aquele circuito e outra "opções específicas" onde o usuário escolhe qual dado ele deseja ver tendo a possibilidade de fazer novas pesquisas também além de também ter a opção de procurar por dados dos pilotos. Por fim há uma seção de loja onde o usuário pode comprar merchandise entre outros produtos da equipe.
 
  
 ## Dependências 📦
