@@ -241,6 +241,7 @@ Função `game_forca()`:
     <li>O jogador insere uma letra e, se estiver correta, ela é revelada na posição correta na palavra.</li>
     <li>Se o jogador adivinhar todas as letras corretamente antes de esgotar as tentativas, ele vence o jogo.</li>
 </ul>
+<hr>
 
 ```c
 def game_adivinhe_numero():
@@ -265,6 +266,7 @@ Função `game_adivinhe_numero()`:
     <li>O jogador tem que adivinhar qual é esse número.</li>
     <li>O jogo dá feedback ao jogador se o palpite é muito alto ou muito baixo.</li>
 </ul>
+<hr>
 
 ```c
 def game_complete_frase():
@@ -286,6 +288,7 @@ Função `game_complete_frase()`:
     <li>A frase a ser completada é "In the final lap, the ... flag waves".</li>
     <li>O jogador precisa inserir a palavra que completa a frase corretamente.</li>
 </ul>
+<hr>
 
 ```c
 games = {
