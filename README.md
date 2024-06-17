@@ -230,7 +230,6 @@ def game_forca():
     print("Game over! The word was", word)
     return False
 ```
-<hr>
 
 Função `game_forca()`:
 <ul>
@@ -257,7 +256,6 @@ def game_adivinhe_numero():
         else:
             print("Too high! Try again.")
 ```
-<hr>
 
 Função `game_adivinhe_numero()`:
 <ul>
@@ -280,7 +278,6 @@ def game_complete_frase():
         else:
             print("Oops, try again!")
 ```
-<hr>
 
 Função `game_complete_frase()`:
 <ul>
@@ -297,7 +294,6 @@ games = {
     "3": {"name": "Formula Phrase", "game": game_complete_frase},
 }
 ```
-<hr>
 
 Dicionário de Jogos:
 <ul>
@@ -327,7 +323,6 @@ while True:
     else:
         print("Invalid choice. Try again!")
 ```
-<hr>
 
 Loop Principal:
 <ul>
@@ -353,7 +348,6 @@ lista_tipo_dados = ['1', '2']
 lista_dados_opcao = ['1', '0']
 lista_dados_especificos = ['1', '2', '3', '4', '5']
 ```
-<hr>
 
 Definição de Listas:
 <ul>
@@ -361,6 +355,7 @@ Definição de Listas:
     <li>`lista_dados_opcao`: Uma lista que contém as opções disponíveis para a escolha de continuar ou voltar ao menu principal.</li>
     <li>`lista_dados_especificos`: Uma lista que contém as opções disponíveis para dados específicos (umidade, temperatura, proximidade).</li>
 </ul>
+<hr>
 
 ```c
 lista_circuitos = ["Monaco", "Anhembi", "Paris"]
@@ -373,13 +368,14 @@ equipe_pilotos = ["Mahindra", "Mahindra", "Mahindra"]
 colocacao_pilotos = ["23", "20", "17"]
 pontos_pilotos = ["4", "7", "21"]
 ```
-<hr>
 
 Listas relacionadas a circuitos e pilotos, contendo seus nomes e dados associados.
+<hr>
 
 `sys_dados()`
-<hr>
+<br>
 A função principal que controla o sistema de exibição de dados.
+<hr>
 
 ```c
 def exibir_diagrama():
@@ -391,9 +387,9 @@ def exibir_diagrama():
               "Proximidade:\n - acima ou igual a 200m = destroços não detectados\n - abaixo de 200m = "
               "objeto detectado\n - abaixo ou igual a 50m = destroços detectados\n")
 ```
-<hr>
 
 Função para exibir informações sobre um diagrama.
+<hr>
 
 ```c
 def exibir_resultado(local_circuito):
@@ -402,9 +398,9 @@ def exibir_resultado(local_circuito):
               f"temperatura está em {sensor_DHT_temp[local_circuito]}ºC, "
               f"e a distância do sensor de proximidade é de {sensor_proximidade_destrocos[local_circuito]} metros\n")
 ```
-<hr>
 
 Função para exibir os resultados dos circuitos.
+<hr>
 
 ```c
 def exibir_dado_especifico(local_circuito, dado_especifico):
@@ -420,9 +416,9 @@ def exibir_dado_especifico(local_circuito, dado_especifico):
                   "objeto detectado\n - abaixo ou igual a 50m = destroços detectados\n"
                   f"Distância do sensor de proximidade é de {sensor_proximidade_destrocos[local_circuito]} metros\n")
 ```
-<hr>
 
 Função para exibir um dado específico de um circuito (umidade, temperatura, proximidade) escolhido pelo usuário.
+<hr>
 
 ```c
 def exibir_dados_piloto(local_piloto):
@@ -431,11 +427,11 @@ def exibir_dados_piloto(local_piloto):
               f"Colocação: {colocacao_pilotos[local_piloto]}\n"
               f"Pontos: {pontos_pilotos[local_piloto]}\n")
 ```
-<hr>
 
 Função para exibir os dados de um piloto escolhido pelo usuário.
 <br>
 O código entra em um loop enquanto o usuário quiser continuar exibindo dados.
+<hr>
 
 ```c
  while True:
@@ -466,7 +462,6 @@ O código entra em um loop enquanto o usuário quiser continuar exibindo dados.
         elif escolha_dados == '0':
             break
 ```
-<hr>
 
 Loop Principal:
 <ul>
@@ -496,9 +491,9 @@ def desconto_final(number, discount):
     number = number - (number * (discount / 100))
     return number
 ```
-<hr>
 
 Calcula o valor final após a aplicação de um desconto percentual (`discount`) sobre um valor (`number`).
+<hr>
 
 ```c
 def loja(primeira_vez=True):
@@ -558,7 +553,7 @@ def loja(primeira_vez=True):
             break
     return
 ```
-<hr>
+
 <ul>
     <li>A função principal `loja()` simula a operação da loja.</li>
     <li>Se for a primeira vez que o usuário acessa a loja, uma mensagem de boas-vindas é exibida.</li>
