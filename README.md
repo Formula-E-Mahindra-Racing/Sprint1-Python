@@ -203,9 +203,9 @@ Essa seção implementa três mini-games temáticos.
 ```c
 import random
 ```
-<hr>
-
 Esta linha importa o módulo random, que é utilizado para gerar números aleatórios.
+
+<hr>
 
 ```c
 def game_forca():
@@ -341,7 +341,7 @@ Essa seção implementa um sistema de exibição de dados sobre os circuitos e p
 ```c
 from helpers import forca_opcao, meu_index, print_de_opcoes
 ```
-<hr>
+
 Descrição: Importa as funções forca_opcao, verifica_numero, meu_index, print_de_opcoes do módulo helpers.
 <hr>
 
@@ -484,9 +484,9 @@ Essa seção implementa uma loja virtual para a equipe Mahindra Racing, onde os 
 ```c
 from helpers import print_de_opcoes, forca_opcao, limpar_tela, verifica_numero
 ```
-<hr>
-
 Este trecho importa funções utilitárias de um módulo chamado `helpers`.
+
+<hr>
 
 ```c
 def desconto_final(number, discount):
