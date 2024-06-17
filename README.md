@@ -280,7 +280,7 @@ def game_complete_frase():
 ```
 <hr>
 
-Função game_complete_frase():
+Função `game_complete_frase()`:
 <ul>
     <li>Esta função implementa o jogo de Completar a Frase.</li>
     <li>A frase a ser completada é "In the final lap, the ... flag waves".</li>
