@@ -3,7 +3,7 @@ import random
 
 
 def game_forca():
-    word = "FERRARI"
+    word = "MAHINDRA"
     guessed = ["_"] * len(word)
     tries = 6
     print("Welcome to Formula Forca!")
