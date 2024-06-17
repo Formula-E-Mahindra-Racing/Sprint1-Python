@@ -204,7 +204,7 @@ Esta linha importa o módulo random, que é utilizado para gerar números aleat�
 
 ```c
 def game_forca():
-    word = "FERRARI"
+    word = "MAHINDRA"
     guessed = ["_"] * len(word)
     tries = 6
     print("Welcome to Formula Forca!")
