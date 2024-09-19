@@ -5,23 +5,38 @@ def adicionar_ao_carrinho(usuario, id_produto, quantidade):
 
 def finalizar_compra(usuario):
     total_compra = 0
+    itens_comprados = []
     for id_produto, quantidade in usuario["carrinho"].items():
         preco = produtos[id_produto]["preco"]
         estoque = produtos[id_produto]["estoque"]
         if quantidade <= estoque:
             total_compra += quantidade * preco
             produtos[id_produto]["estoque"] -= quantidade
+            itens_comprados.append((produtos[id_produto]["nome"], quantidade, preco))
         else:
             print(f"Quantidade de {produtos[id_produto]['nome']} insuficiente no estoque. Sua compra será ajustada.")
             usuario["carrinho"][id_produto] = estoque
             total_compra += estoque * preco
             produtos[id_produto]["estoque"] = 0
+            itens_comprados.append((produtos[id_produto]["nome"], estoque, preco))
     if usuario["MCs"] >= total_compra:
         usuario["MCs"] -= total_compra
+        usuario["saldo_compras"].append({"itens": itens_comprados, "total": total_compra})
         usuario["carrinho"] = {}  
         print(f"Compra realizada com sucesso! Total: {total_compra} MCs")
     else:
         print("Você não tem Mahindra Coins suficientes para esta compra.")
+
+def exibir_compras_passadas(usuario):
+    if not usuario["saldo_compras"]:
+        print("Nenhuma compra realizada.")
+    else:
+        for id, compra in enumerate(usuario["saldo_compras"], start=1):
+            print(f"\nCompra {id}:")
+            for item in compra["itens"]:
+                print(f"- Produto: {item[0]}, Quantidade: {item[1]}, Preço: {item[2]} MCs /cada")
+            print(f"Total da compra: {compra['total']} MCs")
+        print(f"Saldo restante: {usuario['MCs']} MCs")
     
 def adicionar_produto():
     id_produto = input("Digite o ID do novo produto: ")
@@ -42,7 +57,7 @@ def modificar_estoque():
         print(f"Estoque do produto {produtos[id_produto]['nome']} atualizado para {novo_estoque}.")
         novo_preco = float(input("Digite o novo preço: "))
         produtos[id_produto]["preco"] = novo_preco
-        print(f"Preço do produto {produtos[id_produto]['preco']} atualizado para {novo_preco}.")
+        print(f"Preço do produto {produtos[id_produto]['nome']} atualizado para {novo_preco}.")
     else:
         print("Produto não encontrado.")
  
@@ -61,10 +76,15 @@ def loja(usuario):
                 elif admin_action == "modificar":
                     modificar_estoque()
         while True:
-            escolha = input("\nDigite o ID do produto que deseja comprar ou 'sair' para sair: ").lower()
+            for id_produto, info in produtos.items():
+                print(f"- ID: {id_produto} | {info['nome']} : {info['preco']} MCs (Estoque: {info['estoque']})")
+            escolha = input("\nDigite o ID do produto que deseja comprar, 'compras' para ver suas compras, ou 'sair' para sair: ").lower()
             if escolha == "sair":
                 print("Saindo da loja...")
-                break
+                return
+            if escolha == "compras":
+                exibir_compras_passadas(usuario)
+                continue
             if escolha in produtos:
                 try:
                     quantidade = int(input(f"Quantas unidades de {produtos[escolha]['nome']} você deseja adicionar ao carrinho? "))
@@ -81,15 +101,15 @@ def loja(usuario):
             continuar = input("Deseja continuar comprando? (s/n): ").lower()
             if continuar == 'n':
                 finalizar_compra(usuario)
-                break  
+                break 
         if escolha == "sair":
             break
 
 produtos = {
-    "1" : {"nome" : "Caneca com a logo da Mahindra", "preco" : 2000.0, "estoque" : 50},
-    "2" : {"nome" : "Ingresso Formula E", "preco" : 100000.0, "estoque" : 3},
-    "3" : {"nome" : "Camiseta com a logo da Mahindra", "preco" : 5000.0, "estoque" : 15},
-    "4" : {"nome" : "Boné da escuderia Mahindra", "preco" : 2500.0, "estoque" : 25},
-    "5" : {"nome" : "Chaveiro com o símbolo da Mahindra", "preco" : 500.0, "estoque" : 100},
-    "6" : {"nome" : "Adesivo Mahindra Racing", "preco" : 250.0, "estoque" : 100}
+    "1" : {"nome": "Caneca com a logo da Mahindra", "preco": 2000.0, "estoque": 50},
+    "2" : {"nome": "Ingresso Formula E", "preco": 100000.0, "estoque": 3},
+    "3" : {"nome": "Camiseta com a logo da Mahindra", "preco": 5000.0, "estoque": 15},
+    "4" : {"nome": "Boné da escuderia Mahindra", "preco": 2500.0, "estoque": 25},
+    "5" : {"nome": "Chaveiro com o símbolo da Mahindra", "preco": 500.0, "estoque": 100},
+    "6" : {"nome": "Adesivo Mahindra Racing", "preco": 250.0, "estoque": 100}
 }

@@ -9,15 +9,26 @@ def exibir_diagrama():
           "\nProximidade:\n - acima ou igual a 200m = destroços não detectados\n - abaixo de 200m = "
           "objeto detectado\n - abaixo ou igual a 50m = destroços detectados\n")
 
-def exibir_resultado(circuito):
-    dados = circuitos[circuito]
-    print(f"\nResultado: O circuito de {circuito} está com umidade de {dados['umidade']}%, "
+def print_de_opcoes_circuitos(circuitos):
+    print("\nCircuitos disponíveis:")
+    for id_circuito, dados in circuitos.items():
+        print(f"{id_circuito} - {dados['nome']}")
+
+def exibir_resultado(circuito_id):
+    dados = circuitos[circuito_id]
+    print(f"\nResultado: O circuito de {dados['nome']} está com umidade de {dados['umidade']}%, "
           f"temperatura de {dados['temperatura']}ºC, e proximidade de {dados['proximidade']} metros.")
+
+def print_de_opcoes_pilotos(pilotos):
+    print("\nPilotos disponíveis:")
+    for piloto_id, dados in pilotos.items():
+        print(f"{piloto_id} - {dados['nome']}")
 
 def exibir_dados_piloto(piloto_id):
     dados = pilotos[piloto_id]
     print(f"\nDados do piloto {dados['nome']}:\n"
-          f"Equipe: {dados['equipe']}\nColocação: {dados['colocacao']}\nPontos: {dados['pontos']}")
+          f"Equipe: {dados['equipe']}\n"
+          f"Nacionalidade: {dados['nacionalidade']}\nColocação: {dados['colocacao']}\nPontos: {dados['pontos']}")
 
 def sys_dados():
     print(f"Bem-vindo ao banco de dados Mahindra Racing!")
@@ -25,24 +36,24 @@ def sys_dados():
         tipo_dado = forca_opcao("Deseja acessar dados do circuito ou dos pilotos? (1 - Circuito, 2 - Pilotos)\n--> ",
                                 ['1', '2'], "Opção inválida!")
         if tipo_dado == '1':
-            print_de_opcoes(circuitos.keys())
-            circuito = forca_opcao("Digite o nome do circuito:\n--> ", circuitos.keys(), "Circuito inválido!")
+            print_de_opcoes_circuitos(circuitos)
+            circuito_id = forca_opcao("Digite o ID do circuito:\n--> ", circuitos.keys(), "Circuito inválido!")
             tipo_exibicao = forca_opcao("Você deseja ver opções detalhadas (1) ou específicas (2)?\n--> ", ['1', '2'],
                                         "Opção inválida!")
             if tipo_exibicao == '1':
                 exibir_diagrama()
-                exibir_resultado(circuito)
+                exibir_resultado(circuito_id)
             else:
                 dado = forca_opcao("Qual dado específico deseja ver?\n1 - Umidade\n2 - Temperatura\n3 - Proximidade\n--> ",
                                    ['1', '2', '3'], "Opção inválida!")
                 if dado == '1':
-                    print(f"Umidade: {circuitos[circuito]['umidade']}%")
+                    print(f"Umidade: {circuitos[circuito_id]['umidade']}%")
                 elif dado == '2':
-                    print(f"Temperatura: {circuitos[circuito]['temperatura']}ºC")
+                    print(f"Temperatura: {circuitos[circuito_id]['temperatura']}ºC")
                 elif dado == '3':
-                    print(f"Proximidade: {circuitos[circuito]['proximidade']} metros")
+                    print(f"Proximidade: {circuitos[circuito_id]['proximidade']} metros")
         elif tipo_dado == '2':
-            print_de_opcoes(pilotos.keys())
+            print_de_opcoes_pilotos(pilotos)
             piloto_id = forca_opcao("Digite o ID do piloto:\n--> ", pilotos.keys(), "ID do piloto inválido!")
             exibir_dados_piloto(piloto_id)
         continuar = forca_opcao("Deseja fazer uma nova pesquisa? (1 - Sim, 0 - Não)\n--> ", ['1', '0'], "Opção inválida!")
@@ -50,15 +61,15 @@ def sys_dados():
             break
 
 circuitos = {
-    "Monaco" : {"umidade" : 35, "temperatura" : 30, "proximidade" : 50},
-    "Sao Paulo" : {"umidade" : 60, "temperatura" : 11, "proximidade" : 150},
-    "Paris" : {"umidade" : 25, "temperatura" : -5, "proximidade" : 200},
-    "Miami" : {"umidade" : 60, "temperatura" : 30, "proximidade" : 499},
-    "Tokyo" : {"umidade" : 30, "temperatura" : 5, "proximidade" : 379},
-    "Rome" : {"umidade" : 10, "temperatura" : 35, "proximidade" : 250},
-    "Mexico" : {"umidade" : 50, "temperatura" : 31, "proximidade" : 175},
-    "Buenos Aires" : {"umidade" : 50, "temperatura" : 10, "proximidade" : 100},
-    "Punta del Este" : {"umidade" : 20, "temperatura" : 20, "proximidade" : 200}
+    "1": {"nome": "Mônaco", "umidade": 35, "temperatura": 30, "proximidade": 50},
+    "2": {"nome": "São Paulo", "umidade": 60, "temperatura": 11, "proximidade": 150},
+    "3": {"nome": "Paris", "umidade": 25, "temperatura": -5, "proximidade": 200},
+    "4": {"nome": "Miami", "umidade": 60, "temperatura": 30, "proximidade": 499},
+    "5": {"nome": "Tokyo", "umidade": 30, "temperatura": 5, "proximidade": 379},
+    "6": {"nome": "Rome", "umidade": 10, "temperatura": 35, "proximidade": 250},
+    "7": {"nome": "México", "umidade": 50, "temperatura": 31, "proximidade": 175},
+    "8": {"nome": "Buenos Aires", "umidade": 50, "temperatura": 10, "proximidade": 100},
+    "9": {"nome": "Punta del Este", "umidade": 20, "temperatura": 20, "proximidade": 200}
 }
 
 pilotos = {
