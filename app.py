@@ -6,7 +6,6 @@ from games import games_menu
 
 nome_da_empresa = "Mahindra Racing"
 usuario = None  
-
 while True:
     limpar_tela()
     if usuario:

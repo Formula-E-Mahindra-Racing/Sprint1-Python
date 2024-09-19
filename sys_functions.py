@@ -51,8 +51,14 @@ def sys_dados():
 
 circuitos = {
     "Monaco" : {"umidade" : 35, "temperatura" : 30, "proximidade" : 50},
-    "Anhembi" : {"umidade" : 55, "temperatura" : 15, "proximidade" : 150},
-    "Paris" : {"umidade" : 15, "temperatura" : 5, "proximidade" : 200}
+    "Sao Paulo" : {"umidade" : 60, "temperatura" : 11, "proximidade" : 150},
+    "Paris" : {"umidade" : 25, "temperatura" : -5, "proximidade" : 200},
+    "Miami" : {"umidade" : 60, "temperatura" : 30, "proximidade" : 499},
+    "Tokyo" : {"umidade" : 30, "temperatura" : 5, "proximidade" : 379},
+    "Rome" : {"umidade" : 10, "temperatura" : 35, "proximidade" : 250},
+    "Mexico" : {"umidade" : 50, "temperatura" : 31, "proximidade" : 175},
+    "Buenos Aires" : {"umidade" : 50, "temperatura" : 10, "proximidade" : 100},
+    "Punta del Este" : {"umidade" : 20, "temperatura" : 20, "proximidade" : 200}
 }
 
 pilotos = {
