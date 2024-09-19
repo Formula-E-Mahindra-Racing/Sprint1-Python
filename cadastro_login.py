@@ -6,7 +6,18 @@ def cadastrar_usuario():
     senha = input("Digite sua senha: ")
     email = input("Digite seu email: ")
     is_admin = input("O usuário é admin? (s/n): ").lower() == 's'
-    usuarios[username] = {"senha" : senha, "email" : email, "admin" : is_admin, "saldo_compras" : [], "MCs" : 2000, "carrinho" : {}}
+    if is_admin:
+        mcs_inicial = 200000  
+    else:
+        mcs_inicial = 2500
+    usuarios[username] = {
+        "senha": senha, 
+        "email": email, 
+        "admin": is_admin, 
+        "saldo_compras": [], 
+        "MCs": mcs_inicial, 
+        "carrinho": {}
+    }
     print("Cadastro realizado com sucesso!")
     return login()
 

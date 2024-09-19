@@ -62,7 +62,8 @@ def modificar_estoque():
         print("Produto não encontrado.")
  
 def loja(usuario):
-    print("Bem-vindo à loja da Mahindra Racing!")
+    print(f"Bem-vindo à loja da Mahindra Racing, {usuario['username']}!")
+    print(f"Seu saldo atual é: {usuario['MCs']} MCs")
     while True:
         print("\nProdutos disponíveis:")
         for id_produto, info in produtos.items():
