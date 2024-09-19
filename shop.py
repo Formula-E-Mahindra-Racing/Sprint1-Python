@@ -1,3 +1,28 @@
+def adicionar_ao_carrinho(usuario, id_produto, quantidade):
+    if id_produto not in usuario["carrinho"]:
+        usuario["carrinho"][id_produto] = 0
+    usuario["carrinho"][id_produto] += quantidade
+
+def finalizar_compra(usuario):
+    total_compra = 0
+    for id_produto, quantidade in usuario["carrinho"].items():
+        preco = produtos[id_produto]["preco"]
+        estoque = produtos[id_produto]["estoque"]
+        if quantidade <= estoque:
+            total_compra += quantidade * preco
+            produtos[id_produto]["estoque"] -= quantidade
+        else:
+            print(f"Quantidade de {produtos[id_produto]['nome']} insuficiente no estoque. Sua compra será ajustada.")
+            usuario["carrinho"][id_produto] = estoque
+            total_compra += estoque * preco
+            produtos[id_produto]["estoque"] = 0
+    if usuario["MCs"] >= total_compra:
+        usuario["MCs"] -= total_compra
+        usuario["carrinho"] = {}  
+        print(f"Compra realizada com sucesso! Total: {total_compra} MCs")
+    else:
+        print("Você não tem Mahindra Coins suficientes para esta compra.")
+    
 def adicionar_produto():
     id_produto = input("Digite o ID do novo produto: ")
     nome_produto = input("Digite o nome do novo produto: ")
@@ -20,7 +45,7 @@ def modificar_estoque():
         print(f"Preço do produto {produtos[id_produto]['preco']} atualizado para {novo_preco}.")
     else:
         print("Produto não encontrado.")
-
+ 
 def loja(usuario):
     print("Bem-vindo à loja da Mahindra Racing!")
     while True:
@@ -35,30 +60,31 @@ def loja(usuario):
                     adicionar_produto()
                 elif admin_action == "modificar":
                     modificar_estoque()
-        for id_produto, info in produtos.items():
-            print(f"- ID: {id_produto} | {info['nome']} : {info['preco']} MCs (Estoque: {info['estoque']})")
-        escolha = input("\nDigite o ID do produto que deseja comprar ou 'sair' para sair: ").lower()
-        if escolha == "sair":
-            break
-        if escolha in produtos:
-            if produtos[escolha]["estoque"] > 0:
-                quantidade = int(input(f"Quantas unidades de {produtos[escolha]['nome'].title()} você deseja comprar? "))
+        while True:
+            escolha = input("\nDigite o ID do produto que deseja comprar ou 'sair' para sair: ").lower()
+            if escolha == "sair":
+                print("Saindo da loja...")
+                break
+            if escolha in produtos:
+                try:
+                    quantidade = int(input(f"Quantas unidades de {produtos[escolha]['nome']} você deseja adicionar ao carrinho? "))
+                except ValueError:
+                    print("Por favor, insira um número válido para a quantidade.")
+                    continue
                 if quantidade <= produtos[escolha]["estoque"]:
-                    total = quantidade * produtos[escolha]["preco"]
-                    if usuario["MCs"] >= total:
-                        usuario["MCs"] -= total
-                        produtos[escolha]["estoque"] -= quantidade
-                        print(f"Compra realizada com sucesso! Total: {total} MCs")
-                        print(f"Estoque atualizado: {produtos[escolha]['estoque']} unidades restantes.")
-                    else:
-                        print("Você não tem Mahindra Coins suficientes para esta compra.")
+                    adicionar_ao_carrinho(usuario, escolha, quantidade)
+                    print(f"{quantidade} unidade(s) de {produtos[escolha]['nome']} adicionada(s) ao carrinho.")
                 else:
                     print("Quantidade em estoque insuficiente.")
             else:
-                print(f"{produtos[escolha]['nome'].title()} está fora de estoque.")
-        else:
-            print("Produto não encontrado.")
-        
+                print("Produto não encontrado.")
+            continuar = input("Deseja continuar comprando? (s/n): ").lower()
+            if continuar == 'n':
+                finalizar_compra(usuario)
+                break  
+        if escolha == "sair":
+            break
+
 produtos = {
     "1" : {"nome" : "Caneca com a logo da Mahindra", "preco" : 2000.0, "estoque" : 50},
     "2" : {"nome" : "Ingresso Formula E", "preco" : 100000.0, "estoque" : 3},

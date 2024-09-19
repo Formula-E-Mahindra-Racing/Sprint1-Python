@@ -14,9 +14,9 @@ def exibir_resultado(circuito):
     print(f"\nResultado: O circuito de {circuito} está com umidade de {dados['umidade']}%, "
           f"temperatura de {dados['temperatura']}ºC, e proximidade de {dados['proximidade']} metros.")
 
-def exibir_dados_piloto(piloto):
-    dados = pilotos[piloto]
-    print(f"\nDados do piloto {piloto}:\n"
+def exibir_dados_piloto(piloto_id):
+    dados = pilotos[piloto_id]
+    print(f"\nDados do piloto {dados['nome']}:\n"
           f"Equipe: {dados['equipe']}\nColocação: {dados['colocacao']}\nPontos: {dados['pontos']}")
 
 def sys_dados():
@@ -43,8 +43,8 @@ def sys_dados():
                     print(f"Proximidade: {circuitos[circuito]['proximidade']} metros")
         elif tipo_dado == '2':
             print_de_opcoes(pilotos.keys())
-            piloto = forca_opcao("Digite o nome do piloto:\n--> ", pilotos.keys(), "Piloto inválido!")
-            exibir_dados_piloto(piloto)
+            piloto_id = forca_opcao("Digite o ID do piloto:\n--> ", pilotos.keys(), "ID do piloto inválido!")
+            exibir_dados_piloto(piloto_id)
         continuar = forca_opcao("Deseja fazer uma nova pesquisa? (1 - Sim, 0 - Não)\n--> ", ['1', '0'], "Opção inválida!")
         if continuar == '0':
             break
@@ -62,7 +62,12 @@ circuitos = {
 }
 
 pilotos = {
-    "King" : {"equipe" : "Mahindra", "colocacao" : 23, "pontos" : 4},
-    "Mortara" : {"equipe" : "Mahindra", "colocacao" : 20, "pontos" : 7},
-    "De Vries" : {"equipe" : "Mahindra", "colocacao" : 17, "pontos" : 21}
+    "1": {"nome": "Jordan King", "equipe": "Mahindra", "nacionalidade": "Grã-Bretanha", "colocacao": 26, "pontos": 0},
+    "2": {"nome": "Edoardo Mortara", "equipe": "Mahindra", "nacionalidade": "Suíça", "colocacao": 16, "pontos": 20},
+    "3": {"nome": "Nyck De Vries", "equipe": "Mahindra", "nacionalidade": "Holanda", "colocacao": 18, "pontos": 18},
+    "4": {"nome": "Pascal Wehrlein", "equipe": "Porsche TagHeur", "nacionalidade": "Alemanha", "colocacao": 1, "pontos": 198},
+    "5": {"nome": "Mitch Evans", "equipe": "Jaguar TOS", "nacionalidade": "Nova Zelândia", "colocacao": 2, "pontos": 192},
+    "6": {"nome": "Nick Cassidy", "equipe": "Jaguar TOS", "nacionalidade": "Nova Zelândia", "colocacao": 3, "pontos": 176},
+    "7": {"nome": "Lucas Di Grassi", "equipe": "ABT Cupra", "nacionalidade": "Brasil", "colocacao": 23, "pontos": 4},
+    "8": {"nome": "Jake Hughes", "equipe": "Neom McLaren", "nacionalidade": "Grã-Bretanha", "colocacao": 14, "pontos": 48}
 }

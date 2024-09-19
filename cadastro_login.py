@@ -6,7 +6,7 @@ def cadastrar_usuario():
     senha = input("Digite sua senha: ")
     email = input("Digite seu email: ")
     is_admin = input("O usuário é admin? (s/n): ").lower() == 's'
-    usuarios[username] = {"senha" : senha, "email" : email, "admin" : is_admin, "compras" : [], "MCs" : 2000, "carrinho" : []}
+    usuarios[username] = {"senha" : senha, "email" : email, "admin" : is_admin, "compras" : [], "MCs" : 2000, "carrinho" : {}}
     print("Cadastro realizado com sucesso!")
     return login()
 
@@ -30,7 +30,7 @@ usuarios = {
         "admin": True, 
         "compras": [], 
         "MCs": 0, 
-        "carrinho": []
+        "carrinho": {}
     },
     "user1": {
         "senha": "userpass", 
@@ -38,6 +38,6 @@ usuarios = {
         "admin": False, 
         "compras": [], 
         "MCs": 0, 
-        "carrinho": []
+        "carrinho": {}
     }
 }
