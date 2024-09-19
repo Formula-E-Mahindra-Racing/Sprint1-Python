@@ -1,24 +1,12 @@
 from helpers import forca_opcao, print_de_opcoes
 
-circuitos = {
-    "Monaco": {"umidade": 35, "temperatura": 30, "proximidade": 50},
-    "Anhembi": {"umidade": 55, "temperatura": 15, "proximidade": 150},
-    "Paris": {"umidade": 15, "temperatura": 5, "proximidade": 200}
-}
-
-pilotos = {
-    "King": {"equipe": "Mahindra", "colocação": 23, "pontos": 4},
-    "Mortara": {"equipe": "Mahindra", "colocação": 20, "pontos": 7},
-    "De Vries": {"equipe": "Mahindra", "colocação": 17, "pontos": 21}
-}
-
 def exibir_diagrama():
     print("\nDiagrama de informações:\n"
           "Umidade:\n - abaixo de 30% = ambiente seco\n - acima de 70% = possibilidade de chuva\n "
           "- entre 30 e 50% = estado ideal\n - entre 51 e 69% = em alerta de chuva\n"
-          "Temperatura:\n - entre 25 e 50ºC = normal\n - acima de 80ºC = temperatura elevada\n - "
+          "\nTemperatura:\n - entre 25 e 50ºC = normal\n - acima de 80ºC = temperatura elevada\n - "
           "abaixo de 25ºC = temperatura baixa\n - entre 51 e 79 = temperatura em alerta\n"
-          "Proximidade:\n - acima ou igual a 200m = destroços não detectados\n - abaixo de 200m = "
+          "\nProximidade:\n - acima ou igual a 200m = destroços não detectados\n - abaixo de 200m = "
           "objeto detectado\n - abaixo ou igual a 50m = destroços detectados\n")
 
 def exibir_resultado(circuito):
@@ -33,7 +21,6 @@ def exibir_dados_piloto(piloto):
 
 def sys_dados():
     print(f"Bem-vindo ao banco de dados Mahindra Racing!")
-
     while True:
         tipo_dado = forca_opcao("Deseja acessar dados do circuito ou dos pilotos? (1 - Circuito, 2 - Pilotos)\n--> ",
                                 ['1', '2'], "Opção inválida!")
@@ -54,12 +41,22 @@ def sys_dados():
                     print(f"Temperatura: {circuitos[circuito]['temperatura']}ºC")
                 elif dado == '3':
                     print(f"Proximidade: {circuitos[circuito]['proximidade']} metros")
-
         elif tipo_dado == '2':
             print_de_opcoes(pilotos.keys())
             piloto = forca_opcao("Digite o nome do piloto:\n--> ", pilotos.keys(), "Piloto inválido!")
             exibir_dados_piloto(piloto)
-
         continuar = forca_opcao("Deseja fazer uma nova pesquisa? (1 - Sim, 0 - Não)\n--> ", ['1', '0'], "Opção inválida!")
         if continuar == '0':
             break
+
+circuitos = {
+    "Monaco" : {"umidade" : 35, "temperatura" : 30, "proximidade" : 50},
+    "Anhembi" : {"umidade" : 55, "temperatura" : 15, "proximidade" : 150},
+    "Paris" : {"umidade" : 15, "temperatura" : 5, "proximidade" : 200}
+}
+
+pilotos = {
+    "King" : {"equipe" : "Mahindra", "colocacao" : 23, "pontos" : 4},
+    "Mortara" : {"equipe" : "Mahindra", "colocacao" : 20, "pontos" : 7},
+    "De Vries" : {"equipe" : "Mahindra", "colocacao" : 17, "pontos" : 21}
+}

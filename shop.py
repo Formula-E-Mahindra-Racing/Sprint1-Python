@@ -1,40 +1,61 @@
-from helpers import print_de_opcoes, forca_opcao, limpar_tela, verifica_numero
+def adicionar_produto():
+    nome_produto = input("Digite o nome do novo produto: ")
+    preco = int(input("Digite o preço do produto: "))
+    estoque = int(input("Digite a quantidade em estoque: "))
+    produtos[nome_produto] = {"preco" : preco, "estoque" : estoque}
+    print(f"Produto {nome_produto} adicionado com sucesso!")
+
+def modificar_estoque():
+    nome_produto = input("Digite o nome do produto que deseja modificar o estoque: ")
+    if nome_produto in produtos:
+        novo_estoque = int(input("Digite a nova quantidade em estoque: "))
+        produtos[nome_produto]["estoque"] = novo_estoque
+        print(f"Estoque do produto {nome_produto} atualizado para {novo_estoque}.")
+    else:
+        print("Produto não encontrado.")
+
+def loja(usuario):
+    print("Bem-vindo à loja da Mahindra Racing!")
+    if usuario["admin"]:
+        admin_opcao = input("Você deseja adicionar ou modificar produtos? (s/n): ").lower()
+        if admin_opcao == 's':
+            admin_action = input("Digite 'adicionar' para adicionar produtos ou 'modificar' para alterar estoque: ").lower()
+            if admin_action == "adicionar":
+                adicionar_produto()
+            elif admin_action == "modificar":
+                modificar_estoque()
+    while True:
+        print("\nProdutos disponíveis:")
+        for produto_id, info in produtos.items():
+            print(f"- ID: {produto_id} | {info['nome']} : {info['preco']} MCs (Estoque: {info['estoque']})")
+        escolha = input("\nDigite o ID do produto que deseja comprar ou 'sair' para sair: ").lower()
+        if escolha == "sair":
+            break
+        if escolha in produtos:
+            produto = produtos[escolha]
+            if produto["estoque"] > 0:
+                quantidade = int(input(f"Quantas unidades de {produto['nome']} você deseja comprar? "))
+                total = quantidade * produto["preco"]
+                if usuario["MCs"] >= total:
+                    if quantidade <= produto["estoque"]:
+                        usuario["MCs"] -= total
+                        produto["estoque"] -= quantidade
+                        print(f"Compra realizada com sucesso! Total: {total} MCs")
+                        print(f"Estoque atualizado: {produto['estoque']} unidades restantes.")
+                        print(f"Saldo restante: {usuario['MCs']} MCs")
+                    else:
+                        print("Quantidade em estoque insuficiente.")
+                else:
+                    print("Saldo insuficiente de Mahindra Coins.")
+            else:
+                print(f"{produto['nome']} está fora de estoque.")
+        else:
+            print("Produto não encontrado.")
 
 produtos = {
-    '1': {'nome': 'Caneca com a logo da Mahindra', 'preco': 2000},
-    '2': {'nome': 'Ticket para a próxima corrida', 'preco': 100000},
-    '3': {'nome': 'Camiseta com a logo da Mahindra', 'preco': 5000},
-    '4': {'nome': 'Boné da escuderia Mahindra', 'preco': 2500}
+    "1" : {"nome" : "Caneca com a logo da Mahindra", "preco" : 2000, "estoque" : 50},
+    "2" : {"nome" : "Ingresso Formula E", "preco" : 100000, "estoque" : 3},
+    "3" : {"nome" : "Camiseta com a logo da Mahindra", "preco" : 5000, "estoque" : 15},
+    "4" : {"nome" : "Boné da escuderia Mahindra", "preco" : 2500, "estoque" : 25}
 }
 
-def desconto_final(total, desconto):
-    return total - (total * (desconto / 100))
-
-def loja(primeira_vez=True):
-    if primeira_vez:
-        print('Seja bem vindo à loja da Mahindra Racing!')
-    total = 0
-    while True:
-        print_de_opcoes([f"({key}). {produto['nome']} -> {produto['preco']}MC" for key, produto in produtos.items()])
-        opcao = forca_opcao("Escolha um produto ou digite 5 para sair:\n--> ", produtos.keys() | {'5'}, "Opção inválida!")
-        if opcao == '5':
-            break
-        quantidade = verifica_numero('Quantos gostaria de adicionar ao carrinho?\n--> ', 'Digite um número válido.')
-        total += produtos[opcao]['preco'] * quantidade
-        print(f'O subtotal é: {total} MC')
-        continuar = forca_opcao('Gostaria de continuar comprando (s/n)?\n--> ', ['s', 'n'], 'Digite "s" ou "n".')
-        if continuar == 'n':
-            if total < 200:
-                desconto = 2
-            elif total < 1000:
-                desconto = 8
-            elif total < 2000:
-                desconto = 12
-            else:
-                desconto = 15
-            print(f'Você ganhou {desconto}% de desconto por suas compras!')
-            total_com_desconto = desconto_final(total, desconto)
-            print(f'Total a pagar com desconto: {total_com_desconto} MC')
-            break
-    print('Obrigado pela compra! Volte sempre!')
-    limpar_tela()
