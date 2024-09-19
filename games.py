@@ -1,55 +1,65 @@
 # Formula-themed games
 import random
+from random import choice
+from helpers import meu_index
+
+dict_game_forca = {
+    "words": ["EPRIX", "CAMPEONATO", "CORRIDA", "ELETRICO", "CARROS", "PILOTOS", "EQUIPES", "TEMPORADA", "CLASSIFICACAO", "PONTOS", "POLEPOSITION", "VOLTAMAISRAPIDA", "PODIUM", "CAMPEAO", "FIA", "MAHINDRA", "GEN2", "GEN3", "ATTACKMODE", "FANBOOST", "SAFETYCAR", "VIRTUALSAFETYCAR", "DRS", "REGENERACAO", "ENERGIA", "BATERIA", "RECARGA", "CIDADE", "CIRCUITO", "URBANO", "SUSTENTABILIDADE", "MOBILIDADEELETRICA"],
+    
+    "tips": ["Cada corrida da Fórmula E", "Campeonato mundial de carros elétricos", "Prova de velocidade em um circuito", "Movido a eletricidade", "Veículos de competição", "Condutores dos carros", "Grupos que competem", "Período de corridas", "Ordem dos pilotos", "Sistema de pontuação", "Primeiro lugar na classificação", "Melhor tempo em uma volta", "Os três primeiros colocados", "Vencedor do campeonato", "Federação Internacional do Automóvel", "Nome da principal empresa de Formula E", "Segunda geração de carros", "Terceira geração de carros", "Modo de potência extra", "Votos dos fãs para potência extra", "Carro de segurança para neutralizar a corrida", "Sistema de segurança virtual", "Sistema de redução de arrasto", "Recuperação de energia na frenagem", "Fonte de potência dos carros", "Armazenamento de energia", "Abastecimento de energia", "Localização das corridas", "Local onde a corrida acontece", "Corrida em ambiente urbano", "Compromisso com o meio ambiente", "Transporte elétrico"]
+}
 
 
 def game_forca():
-    word = "MAHINDRA"
+    word = random.choice(dict_game_forca['words'])
+    index = meu_index(dict_game_forca['words'], word)
     guessed = ["_"] * len(word)
     tries = 6
-    print("Welcome to Formula Forca!")
+    print("Bem vindo a Formula Forca!")
     while tries > 0:
         print(" ".join(guessed))
-        guess = input("Guess a letter:\n--> ").upper()
+        print(f"Dica: {dict_game_forca['tips'][index]}")
+        guess = input("Chute uma letra:\n--> ").upper()
         if guess in word:
-            print("Good job!")
+            print("Bom trabalho!")
             for i in range(len(word)):
                 if word[i] == guess:
                     guessed[i] = guess
         else:
-            print("Oops, try again!")
+            print("Oops, tente de novo!")
             tries -= 1
         if "_" not in guessed:
-            print("You won! The word was", word)
+            print("Você conseguiu! A palavra era", word)
             return True
-    print("Game over! The word was", word)
+    print("Fim de jogo! A palavra era", word)
     return False
 
 
 def game_adivinhe_numero():
     number = random.randint(1, 100)  # a random number
-    print("Welcome to Formula Guess!")
+    print("Bem vindo ao Formula Adivinha!")
     while True:
-        guess = int(input("Guess a number between 1 and 100:\n--> "))
+        guess = int(input("Diga um número entre 1 e 100:\n--> "))
         if guess == number:
-            print("You won! The number was", number)
+            print("Parabéns! O número era", number)
             return True
         elif guess < number:
-            print("Too low! Try again.")
+            print("Muito baixo! Tente de novo.")
         else:
-            print("Too high! Try again.")
+            print("Muito alto! Tente de novo.")
 
 
 def game_complete_frase():
     frase = "CHECKED"
-    print("Welcome to Formula Phrase!")
+    print("Bem vindo ao Formula Frase!")
     while True:
         guess = input(
-            "Complete the phrase: 'In the final lap, the ... flag waves'\n--> ").upper()
+            "Complete a frase: 'In the final lap, the ... flag waves'\n--> ").upper()
         if guess == frase:
-            print("You won! The phrase was 'In the final lap, the checked flag waves'")
+            print("Parabéns! A frase era 'In the final lap, the checked flag waves'")
             return True
         else:
-            print("Oops, try again!")
+            print("Oops, tente de novo!")
 
 
 games = {
@@ -61,23 +71,23 @@ games = {
 
 def games_menu():
     while True:
-        print("Choose a game:")
+        print("Escolha um jogo:")
         for key, game in games.items():
             print(f"{key}. {game['name']}")
-        choice = input("Enter the number of your choice: ")
+        choice = input("Digite o número da escolha: ")
         if choice in games:
             if games[choice]["game"]():
-                play_again = input("Do you want to play again? (y/n): ")
+                play_again = input("Deseja jogar novamente? (y/n): ")
                 if play_again.lower() == "y":
                     continue
                 else:
                     break
             else:
-                play_again = input("Do you want to play again? (y/n): ")
+                play_again = input("Deseja jogar novamente? (y/n): ")
                 if play_again.lower() == "y":
                     continue
                 else:
                     break
         else:
-            print("Invalid choice. Try again!")
+            print("Opção inválida. Tente novamente!")
     return
