@@ -1,53 +1,29 @@
 from helpers import print_de_opcoes, forca_opcao, limpar_tela, verifica_numero
 
+produtos = {
+    '1': {'nome': 'Caneca com a logo da Mahindra', 'preco': 2000},
+    '2': {'nome': 'Ticket para a próxima corrida', 'preco': 100000},
+    '3': {'nome': 'Camiseta com a logo da Mahindra', 'preco': 5000},
+    '4': {'nome': 'Boné da escuderia Mahindra', 'preco': 2500}
+}
 
-def desconto_final(number, discount):
-    number = number - (number * (discount / 100))
-    return number
-
+def desconto_final(total, desconto):
+    return total - (total * (desconto / 100))
 
 def loja(primeira_vez=True):
     if primeira_vez:
-        print('Seja bem vindo!! Esta é a loja da Mahindra Racing\nPor aqui, você pode\n - Comprar Canecas, Camisetas e até ingressos para a próxima corrida de Fórmula-E\n - Aqui usamos a Mahindra Coins(MC) como moeda para compra desses produtos.\n\n')
-
-    preco_caneca = 390
-    preco_ticket = 2000
-    preco_camiseta = 500
-    preco_bone = 130
-
-    precos = [preco_caneca, preco_ticket, preco_camiseta, preco_bone]
+        print('Seja bem vindo à loja da Mahindra Racing!')
     total = 0
-
-    coisas_para_comprar = [
-        f'(1). Caneca com a logo da Mahindra -> {preco_caneca}MC',
-        f'(2). Ticket para a próxima corrida -> {preco_ticket}MC',
-        f'(3). Camiseta com a logo da Mahindra -> {preco_camiseta}MC',
-        f'(4). Boné da escuderia Mahindra -> {preco_bone}MC',
-        '(5). Sair...'
-    ]
-
     while True:
-        sub_total = 0
-        output_opcoes = print_de_opcoes(coisas_para_comprar)
-        opcao_de_compra = forca_opcao(
-            '', ['1', '2', '3', '4', '5'], 'Por favor, escolha somente os números: 1, 2, 3, 4, 5\n' + output_opcoes)
-        if opcao_de_compra == '5':
+        print_de_opcoes([f"({key}). {produto['nome']} -> {produto['preco']}MC" for key, produto in produtos.items()])
+        opcao = forca_opcao("Escolha um produto ou digite 5 para sair:\n--> ", produtos.keys() | {'5'}, "Opção inválida!")
+        if opcao == '5':
             break
-
-        quantidade = verifica_numero(
-            'Quantos gostaria de adicionar ao carrinho?\n-->', 'Por favor, digite somente números inteiros')
-        sub_total = precos[int(opcao_de_compra) - 1] * quantidade
-
-        total += sub_total
-        print(f'O subtotal é: {total}')
-
-        continuar_comprando = forca_opcao(
-            'Gostaria de continuar comprando (s/n)?\n-->', ['s', 'n'], 'Por favor, escolha somente uma das letras: s, n\n')
-        if continuar_comprando == 's':
-            limpar_tela()
-            continue
-        else:
-            desconto = 0
+        quantidade = verifica_numero('Quantos gostaria de adicionar ao carrinho?\n--> ', 'Digite um número válido.')
+        total += produtos[opcao]['preco'] * quantidade
+        print(f'O subtotal é: {total} MC')
+        continuar = forca_opcao('Gostaria de continuar comprando (s/n)?\n--> ', ['s', 'n'], 'Digite "s" ou "n".')
+        if continuar == 'n':
             if total < 200:
                 desconto = 2
             elif total < 1000:
@@ -56,9 +32,9 @@ def loja(primeira_vez=True):
                 desconto = 12
             else:
                 desconto = 15
-
-            total = desconto_final(total, desconto)
-            print(f'Um desconto de {desconto}% foi aplicado.')
-            print(f'O total é: {total:.2f}MCs\nMuito obrigado e volte sempre')
+            print(f'Você ganhou {desconto}% de desconto por suas compras!')
+            total_com_desconto = desconto_final(total, desconto)
+            print(f'Total a pagar com desconto: {total_com_desconto} MC')
             break
-    return
+    print('Obrigado pela compra! Volte sempre!')
+    limpar_tela()

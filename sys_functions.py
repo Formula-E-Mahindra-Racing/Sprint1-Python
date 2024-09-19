@@ -1,6 +1,5 @@
 from helpers import forca_opcao, print_de_opcoes
 
-# Dados organizados em dicionários
 circuitos = {
     "Monaco": {"umidade": 35, "temperatura": 30, "proximidade": 50},
     "Anhembi": {"umidade": 55, "temperatura": 15, "proximidade": 150},
