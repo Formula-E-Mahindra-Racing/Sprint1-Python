@@ -1,4 +1,4 @@
-def limpar_tela(linhas=10):
+def limpar_tela(linhas=20):
     print("\n" * linhas)
 
 def forca_opcao(msg, opcoes, msg_erro):
@@ -8,6 +8,14 @@ def forca_opcao(msg, opcoes, msg_erro):
         print(msg_erro)
         opcao = input(msg)
     return opcao
+
+def meu_index(lista, buscar):
+    for i in range(len(lista)):
+        elem = lista[i]
+        if elem == buscar:
+            return i
+    return False
+
 
 def verifica_numero(msg, msg_erro):
     while True:
