@@ -1,12 +1,7 @@
 # Formula-themed games
 import random
 from helpers import meu_index, limpar_tela
-
-dict_game_forca = {
-    "words": ["EPRIX", "CAMPEONATO", "CORRIDA", "ELETRICO", "CARROS", "PILOTOS", "EQUIPES", "TEMPORADA", "CLASSIFICACAO", "PONTOS", "POLEPOSITION", "VOLTAMAISRAPIDA", "PODIUM", "CAMPEAO", "FIA", "MAHINDRA", "GEN2", "GEN3", "ATTACKMODE", "FANBOOST", "SAFETYCAR", "VIRTUALSAFETYCAR", "DRS", "REGENERACAO", "ENERGIA", "BATERIA", "RECARGA", "CIDADE", "CIRCUITO", "URBANO", "SUSTENTABILIDADE", "MOBILIDADEELETRICA"],
-    
-    "tips": ["Cada corrida da Fórmula E", "Campeonato mundial de carros elétricos", "Prova de velocidade em um circuito", "Movido a eletricidade", "Veículos de competição", "Condutores dos carros", "Grupos que competem", "Período de corridas", "Ordem dos pilotos", "Sistema de pontuação", "Primeiro lugar na classificação", "Melhor tempo em uma volta", "Os três primeiros colocados", "Vencedor do campeonato", "Federação Internacional do Automóvel", "Nome da principal empresa de Formula E", "Segunda geração de carros", "Terceira geração de carros", "Modo de potência extra", "Votos dos fãs para potência extra", "Carro de segurança para neutralizar a corrida", "Sistema de segurança virtual", "Sistema de redução de arrasto", "Recuperação de energia na frenagem", "Fonte de potência dos carros", "Armazenamento de energia", "Abastecimento de energia", "Localização das corridas", "Local onde a corrida acontece", "Corrida em ambiente urbano", "Compromisso com o meio ambiente", "Transporte elétrico"]
-}
+from game_dictionaries import dict_game_forca, dict_game_complete_frase
 
 
 def game_forca():
@@ -14,7 +9,7 @@ def game_forca():
     index = meu_index(dict_game_forca['words'], word)
     guessed = ["_"] * len(word)
     tries = 10
-    print("Bem vindo a Formula Forca!\nComo jogar: digite letras individualmente até alguma dela aparecer no display,\nfaça isso até formar a palavra completa.\nAtenção!\nHá adivinhações com duas palavras nas quais elas não possuirão espaço\nAs palavras não possuem assento ou 'ç'")
+    print("Bem vindo a Formula Forca!\nComo jogar: digite letras individualmente até alguma dela aparecer no display,\nfaça isso até formar a palavra completa.\nAtenção!\nHá adivinhações com duas palavras nas quais elas não possuirão espaço\nAs palavras não possuem assento ou 'ç'\n")
     while tries > 0:
         print(" ".join(guessed))
         print(f"Dica: {dict_game_forca['tips'][index]}")
@@ -55,22 +50,26 @@ def game_adivinhe_numero():
 
 
 def game_complete_frase():
-    frase = "CHECKED"
-    print("Bem vindo ao Formula Frase!")
+    palavra = random.choice(dict_game_complete_frase['words'])
+    index = meu_index(dict_game_complete_frase['words'], palavra)
+    frase = dict_game_complete_frase['phrases'][index]
+    dica = dict_game_complete_frase['tips'][index]
+    print("Bem vindo ao Formula Frase!\nNesse jogo será mostrado uma frase incompleta e o jogador deverá completa-la com uma palavra\nSomente uma dica sobre a palavra será mostrada\n")
     while True:
-        guess = input(
-            "Complete a frase: 'In the final lap, the ... flag waves'\n--> ").upper()
-        if guess == frase:
-            print("Parabéns! A frase era 'In the final lap, the checked flag waves'")
+        print(f"Dica para a palavra: {dica}")
+        guess = input(f"Complete a frase: {frase}\n--> ").lower()
+        if guess == palavra:
+            print(f"Parabéns! A frase era {frase.replace('...', palavra)}")
             return True
         else:
+            limpar_tela()
             print("Oops, tente de novo!")
 
 
 games = {
     "1": {"name": "Formula Forca", "game": game_forca},
-    "2": {"name": "Formula Guess", "game": game_adivinhe_numero},
-    "3": {"name": "Formula Phrase", "game": game_complete_frase},
+    "2": {"name": "Formula Adivinha", "game": game_adivinhe_numero},
+    "3": {"name": "Formula Frase", "game": game_complete_frase},
 }
 
 
@@ -98,4 +97,4 @@ def games_menu():
         else:
             print("Opção inválida. Tente novamente!")
     return
-game_forca()
+game_complete_frase()
