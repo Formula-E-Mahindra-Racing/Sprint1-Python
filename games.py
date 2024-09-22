@@ -4,7 +4,6 @@ from helpers import meu_index, limpar_tela
 from game_dictionaries import dict_game_forca, dict_game_complete_frase
 from cadastro_login import usuarios
 
-
 def game_forca():
     word = random.choice(dict_game_forca['words'])
     index = meu_index(dict_game_forca['words'], word)
@@ -30,7 +29,6 @@ def game_forca():
     print("Fim de jogo! A palavra era", word)
     return False
 
-
 def game_adivinhe_numero():
     number = random.randint(1, 100)  # a random number
     tries = 10
@@ -49,7 +47,6 @@ def game_adivinhe_numero():
     print(f"Fim de jogo! O número era {number}")
     return False
 
-
 def game_complete_frase():
     palavra = random.choice(dict_game_complete_frase['words'])
     index = meu_index(dict_game_complete_frase['words'], palavra)
@@ -65,14 +62,6 @@ def game_complete_frase():
         else:
             limpar_tela()
             print("Oops, tente de novo!")
-
-
-games = {
-    "1": {"name": "Formula Forca", "game": game_forca},
-    "2": {"name": "Formula Adivinha", "game": game_adivinhe_numero},
-    "3": {"name": "Formula Frase", "game": game_complete_frase},
-}
-
 
 def games_menu(usuario):
     while True:
@@ -106,3 +95,9 @@ def games_menu(usuario):
         else:
             print("Opção inválida. Tente novamente!")
     return
+
+games = {
+    "1": {"name": "Formula Forca", "game": game_forca},
+    "2": {"name": "Formula Adivinha", "game": game_adivinhe_numero},
+    "3": {"name": "Formula Frase", "game": game_complete_frase},
+}

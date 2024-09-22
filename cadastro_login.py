@@ -38,20 +38,20 @@ def login():
 usuarios = {
     "admin": {
         "senha": "admin123", 
-        "email": "admin@example.com", 
+        "email": "admin@email.com", 
         "admin": True, 
         "primeira_vez": True,
         "saldo_compras": [], 
         "MCs": 200000, 
         "carrinho": {}
     },
-    "user1": {
+    "user": {
         "senha": "userpass", 
-        "email": "user1@example.com", 
+        "email": "user@email.com", 
         "admin": False, 
-        "primeira_vez": False,
+        "primeira_vez": True,
         "saldo_compras": [], 
-        "MCs": 0, 
+        "MCs": 2500, 
         "carrinho": {}
     }
 }
