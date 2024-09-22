@@ -49,7 +49,7 @@ usuarios = {
         "senha": "userpass", 
         "email": "user1@example.com", 
         "admin": False, 
-        "primeira_vez": True,
+        "primeira_vez": False,
         "saldo_compras": [], 
         "MCs": 0, 
         "carrinho": {}
