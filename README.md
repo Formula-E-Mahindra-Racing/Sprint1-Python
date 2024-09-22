@@ -1,4 +1,6 @@
-# Sprint 1 - Computational Thinking With Python
+# Sprint 2 - Computational Thinking With Python
+
+## Equipe NexusCode
 
 ## Integrantes 👋
 <ul>
@@ -19,80 +21,38 @@ Um app em Python, feito para a Mahindra Racing/Tech Mahindra, que dá ao usuári
 ## Dependências 📦
 <ul>
     <li>helpers.py</li>
-    <li>shop.py</li>
+    <li>cadastro_login.py</li>
     <li>games.py</li>
     <li>sys_functions.py</li>
+    <li>shop.py</li>
 </ul>
  
 <br>
 
-## Explicando o <a href="https://github.com/Formula-E-Mahindra-Racing/Sprint1-Python/blob/main/helpers.py">Código</a> 🧑‍💻
+## Explicando o <a href="path">Código</a> 🧑‍💻
  
 ```c
-def limpar_tela(linhas=20):
-    for i in range(linhas):
-        print("\n")
-    return
+def limpar_tela(linhas=10):
+    print("\n" * linhas)
 ```
-Essa função imprime várias linhas em branco para "limpar" a tela do console.
-Parâmetros: `linhas`: Número de linhas em branco a serem impressas. O padrão é 20.
+Essa função imprime várias linhas em branco para "limpar" a tela do console, o padrão é 10.
 <br>
-Descrição: O loop `for` imprime uma nova linha (`\n`) a cada iteração, criando a impressão de uma tela limpa.
 <hr>
 
 ```c
-def meu_in(lista, buscar):
-    for i in range(len(lista)):
-        elem = lista[i]
-        if elem == buscar:
-            return True
-    return False
-```
-Essa função verifica se um elemento está presente em uma lista.
-Parâmetros: `lista`: A lista onde será feita a busca. 
-<br>
-`buscar`: O elemento a ser buscado na lista.
-<br>
-Descrição: Itera sobre cada elemento da lista. Se o elemento é igual ao buscado, retorna `True`.
-Se o loop termina sem encontrar o elemento, retorna `False`.
-<hr>
-
-```c
-def meu_index(lista, buscar):
-    for i in range(len(lista)):
-        elem = lista[i]
-        if elem == buscar:
-            return i
-    return False
-```
-Essa função retorna o índice de um elemento em uma lista ou `False` se não for encontrado.
-Parâmetros: `lista`: A lista onde será feita a busca. 
-<br>
-`buscar`: O elemento a ser buscado na lista.
-<br>
-Descrição: Itera sobre cada elemento da lista. Se o elemento é igual ao buscado, retorna seu índice.
-Se o loop termina sem encontrar o elemento, retorna `False`.
-<hr>
-
-```c
-def forca_opcao(msg, lista, msg_erro):
+def forca_opcao(msg, opcoes, msg_erro):
     opcao = input(msg)
-    while not meu_in(lista, opcao):
+    while opcao not in opcoes:
         limpar_tela()
         print(msg_erro)
         opcao = input(msg)
     return opcao
 ```
-Essa função força o usuário a escolher uma opção válida a partir de uma lista.
-Parâmetros: `msg`: Mensagem a ser exibida ao solicitar a entrada do usuário. 
+Exibe uma mensagem (`msg`) e espera a entrada do usuário.
 <br>
-`lista`: Lista de opções válidas.
+Continua solicitando uma opção válida (que esteja dentro do parâmetro `opcoes`) até o usuário digitar corretamente.
 <br>
-`msg_erro`: Mensagem de erro a ser exibida se a opção não for válida.
-<br>
-Descrição: Solicita a entrada do usuário. Se a entrada não estiver na lista, limpa a tela e mostra uma mensagem de erro, repetindo a solicitação até que uma opção válida seja inserida.
-<br>
-Retorno: A opção válida escolhida pelo usuário.
+Se a entrada for inválida, imprime uma mensagem de erro (`msg_erro`) e limpa a tela antes de pedir novamente.
 <hr>
 
 ```c
@@ -115,83 +75,150 @@ Retorno: O número inserido pelo usuário, convertido para inteiro.
 
 ```c
 def print_de_opcoes(lista, line_break=True):
-    output = ''
-    for i in range(len(lista)):
-        if line_break:
-            output += f'- {lista[i]}\n'
-        else:
-            prefix = ''
-            if i > 0:
-                prefix = ', '
-            output += f'{prefix}{lista[i]}'
-    if line_break:
-        print(output)
-    return output
+    output = '\n'.join([f'- {item}' for item in lista]) if line_break else ', '.join(lista)
+    print(output)
+    return output1
 ```
-Essa função imprime uma lista de opções formatada, com ou sem quebras de linha.
-Parâmetros: `lista`: A lista de opções a serem impressas.
+Imprime uma lista de itens, um por linha se `line_break` for `True` (padrão), ou em uma única linha separada por vírgulas se for `False`.
 <br>
-`line_break`: Booleano que determina se as opções devem ser impressas com quebras de linha (`True`) ou em uma única linha (`False`).
-<br>
-Descrição: Itera sobre a lista, adicionando cada elemento a uma string de saída.
-Se line_break é `True`, adiciona uma nova linha após cada elemento. Caso contrário, adiciona os elementos em uma linha, separados por vírgulas.
-<br>
-Retorno: A string formatada com as opções.
+Retorna a string formatada para possível reutilização.
 <hr>
 
-## Explicando o <a href="https://github.com/Formula-E-Mahindra-Racing/Sprint1-Python/blob/main/app.py">Código</a> 🧑‍💻
+## Explicando o <a href="path">Código</a> 🧑‍💻
+
+```c
+def cadastrar_usuario():
+    username = input("Digite o nome de usuário para cadastro: ")
+    if username in usuarios:
+        print("Usuário já existe!")
+        return None  
+    senha = input("Digite sua senha: ")
+    email = input("Digite seu email: ")
+    is_admin = input("O usuário é admin? (s/n): ").lower() == 's'
+    if is_admin:
+        mcs_inicial = 200000  
+    else:
+        mcs_inicial = 2500
+    usuarios[username] = {
+        "senha": senha, 
+        "email": email, 
+        "admin": is_admin, 
+        "saldo_compras": [], 
+        "MCs": mcs_inicial, 
+        "carrinho": {}
+    }
+    print("Cadastro realizado com sucesso!")
+    return login()
+```
+Solicita dados como nome de usuário, senha e email para cadastrar um novo usuário. Verifica se o nome de usuário já existe no dicionário `usuarios`.
+<br>
+Define um saldo inicial de Mahindra Coins (MCs) de 200.000 para administradores e 2.500 para usuários normais.
+<br>
+Adiciona o novo usuário ao dicionário `usuarios` com suas respectivas informações. Após o cadastro, tenta realizar o login chamando a função `login()`.
+<hr>
+
+```c
+def login():
+    username = input("Digite o nome de usuário: ")
+    if username not in usuarios:
+        print("Usuário não encontrado!")
+        return None  
+    senha = input("Digite sua senha: ")
+    if usuarios[username]["senha"] == senha:
+        print(f"Bem-vindo, {username}!")
+        return {"username" : username, **usuarios[username]}  
+    else:
+        print("Senha incorreta!")
+        return None
+```
+
+Solicita o nome de usuário e a senha para login. Verifica se o nome de usuário existe no dicionário `usuarios` e se a senha está correta. Se a autenticação for bem-sucedida, retorna as informações do usuário. Se falhar, exibe mensagens de erro apropriadas.
+<hr>
+
+```c
+usuarios = {
+    "admin": {
+        "senha": "admin123", 
+        "email": "admin@example.com", 
+        "admin": True, 
+        "saldo_compras": [], 
+        "MCs": 0, 
+        "carrinho": {}
+    },
+    "user1": {
+        "senha": "userpass", 
+        "email": "user1@example.com", 
+        "admin": False, 
+        "saldo_compras": [], 
+        "MCs": 0, 
+        "carrinho": {}
+    }
+}
+```
+
+Um dicionário que armazena informações dos usuários, onde as chaves são os nomes de usuário, e os valores são outros dicionários contendo senha, email, permissões de administrador, saldo de compras, Mahindra Coins e o carrinho de compras.
+<hr>
+
+## Explicando o <a href="path">Código</a> 🧑‍💻
 
 ```c
 from helpers import forca_opcao, limpar_tela
 from sys_functions import sys_dados
-from shop import loja
-from games import game_menu
+from cadastro_login import cadastrar_usuario, login
+from shop import loja, produtos
+from games import games_menu
 ```
-Descrição: Importa as funções `forca_opcao` e `limpar_tela` do módulo `helpers`, a função `sys_dados` do módulo `sys_functions`, a função `loja` do módulo `shop` e a função `games_menu` do módulo `games`.
+Descrição: Importa as funções `forca_opcao` e `limpar_tela` do módulo `helpers`, a função `sys_dados` do módulo `sys_functions`, a função `cadastrar_usuario` e `login` do módulo `cadastro_login`, a função `loja` e o dicionário `produtos` do módulo `shop` e a função `games_menu` do módulo `games`.
 <hr>
 
 ```c
-lista_menu_opcao = ['1', '2', '3', '0']
-```
-Descrição: `lista_menu_opcao`: Contém as opções de menu principais ('1', '2', '3', '0').
-<hr>
-
-
-```c
+nome_da_empresa = "Mahindra Racing"
+usuario = None  
 while True:
+    limpar_tela()
+    if usuario:
+        print(f"Seja bem-vindo(a), {usuario['username']} à {nome_da_empresa}!")
+    else:
+        print(f"Seja bem-vindo à {nome_da_empresa}!!!")
     caminho = forca_opcao("Por qual caminho você deseja seguir:\n"
                           "1 - Jogos\n"
                           "2 - Dados\n"
                           "3 - Loja\n"
-                          "0 - Sair\n--> ", lista_menu_opcao, "Opção inválida! Digite apenas os números correspondentes ao caminho indicado")
+                          "4 - Cadastro/Login\n"
+                          "0 - Sair\n--> ", ['1', '2', '3', '4', '0'], "Opção inválida!")
     limpar_tela()
     if caminho == '1':
         games_menu()
     elif caminho == '2':
         sys_dados()
     elif caminho == '3':
-        loja()
+        if usuario:
+            loja(usuario)
+        else:
+            for id_produto, info in produtos.items():
+                print(f"- ID: {id_produto} | {info['nome']} : {info['preco']} MCs (Estoque: {info['estoque']})")
+            print("\nVocê precisa estar logado para acessar as funcionalidades da loja.")
+    elif caminho == '4':
+        opcao_login = forca_opcao("1 - Cadastro\n2 - Login\n--> ", ['1', '2'], "Opção inválida!")
+        if opcao_login == '1':
+            usuario_atual = cadastrar_usuario()
+            if usuario_atual:
+                usuario = usuario_atual
+        elif opcao_login == '2':
+            usuario_atual = login()
+            if usuario_atual: 
+                usuario = usuario_atual
     elif caminho == '0':
         break
 ```
-Descrição: O loop `while True` exibe continuamente o menu principal até que o usuário escolha sair (opção '0').
+O arquivo `app.py` serve como o controlador principal, conectando as funcionalidades dos outros módulos do sistema. Ele cuida da interação com o usuário, fornecendo as opções de cadastro, login e acesso às diferentes funcionalidades, como o banco de dados de circuitos e pilotos, e a loja da Mahindra Racing.
 <br>
-Passos no Loop:
-Exibição do Menu:
-O sistema exibe uma mensagem de boas-vindas e solicita ao usuário que escolha uma das opções disponíveis no menu.
-<br>
-Processamento da Escolha:
-A função `forca_opcao` é usada para garantir que o usuário insira uma opção válida. Caso contrário, uma mensagem de erro é exibida.
-<br>
-Limpeza da Tela:
-`limpar_tela` é chamada para limpar a tela antes de continuar com a ação selecionada.
-<br>
-Execução da Função Correspondente:
-Dependendo da escolha do usuário, uma das três funções é chamada: Jogos: `games`; Dados Capturados: `sys_dados`; Loja: `loja`; Saída do Loop:
-Se a escolha for '0', o loop é interrompido e o programa termina.
+Fluxo de Interação:
+Login/Cadastro: O usuário começa no menu de login/cadastro. Caso já tenha uma conta, faz login, senão pode se cadastrar.
+Menu Principal: Após o login, o usuário é direcionado ao menu principal (que é gerido em outro arquivo), onde pode acessar as funções de Banco de Dados (para consultar informações sobre circuitos e pilotos) ou a Loja (para gastar seus Mahindra Coins).
 <hr>
 
-## Explicando o <a href="https://github.com/Formula-E-Mahindra-Racing/Sprint1-Python/blob/main/games.py">Código</a> 🧑‍💻
+## Explicando o <a href="path">Código</a> 🧑‍💻
 
 Essa seção implementa três mini-games temáticos.
 
@@ -199,7 +226,6 @@ Essa seção implementa três mini-games temáticos.
 import random
 ```
 Esta linha importa o módulo random, que é utilizado para gerar números aleatórios.
-
 <hr>
 
 ```c
@@ -328,241 +354,263 @@ Loop Principal:
 </ul>
 <hr>
 
-## Explicando o <a href="https://github.com/Formula-E-Mahindra-Racing/Sprint1-Python/blob/main/sys_functions.py">Código</a> 🧑‍💻
+## Explicando o <a href="path">Código</a> 🧑‍💻
 
 Essa seção implementa um sistema de exibição de dados sobre os circuitos e pilotos.
 
 ```c
-from helpers import forca_opcao, meu_index, print_de_opcoes
+from helpers import forca_opcao, print_de_opcoes
 ```
 
-Descrição: Importa as funções forca_opcao, verifica_numero, meu_index, print_de_opcoes do módulo helpers.
-<hr>
-
-```c
-lista_tipo_dados = ['1', '2']
-lista_dados_opcao = ['1', '0']
-lista_dados_especificos = ['1', '2', '3', '4', '5']
-```
-
-Definição de Listas:
-<ul>
-    <li>`lista_tipo_dados`: Uma lista que contém as opções disponíveis para o tipo de dados (circuito ou pilotos).</li>
-    <li>`lista_dados_opcao`: Uma lista que contém as opções disponíveis para a escolha de continuar ou voltar ao menu principal.</li>
-    <li>`lista_dados_especificos`: Uma lista que contém as opções disponíveis para dados específicos (umidade, temperatura, proximidade).</li>
-</ul>
-<hr>
-
-```c
-lista_circuitos = ["Monaco", "Anhembi", "Paris"]
-sensor_DHT_umidade = [35, 55, 15]
-sensor_DHT_temp = [30, 15, 5]
-sensor_proximidade_destrocos = [50, 150, 200]
-
-lista_pilotos = ["King", "Mortara", "De Vries"]
-equipe_pilotos = ["Mahindra", "Mahindra", "Mahindra"]
-colocacao_pilotos = ["23", "20", "17"]
-pontos_pilotos = ["4", "7", "21"]
-```
-
-Listas relacionadas a circuitos e pilotos, contendo seus nomes e dados associados.
-<hr>
-
-`sys_dados()`
-<br>
-A função principal que controla o sistema de exibição de dados.
+Importa as funções `forca_opcao`, `print_de_opcoes` do módulo `helpers`.
 <hr>
 
 ```c
 def exibir_diagrama():
-        print("\nDiagrama de informações:\n"
-              "Umidade:\n - abaixo de 30% = ambiente seco\n - acima de 70% = possibilidade de chuva\n "
-              "- entre 30 e 50 = estado ideal\n - entre 51 e 69 = em alerta de chuva\n"
-              "Temperatura:\n - entre 25 e 50ºC = normal\n - acima de 80ºC = temperatura elevada\n - " 
-              "abaixo de 25ºC = temperatura abaixo\n - entre 51 e 79 = temperatura em alerta\n"
-              "Proximidade:\n - acima ou igual a 200m = destroços não detectados\n - abaixo de 200m = "
-              "objeto detectado\n - abaixo ou igual a 50m = destroços detectados\n")
+    print("\nDiagrama de informações:\n"
+          "Umidade:\n - abaixo de 30% = ambiente seco\n - acima de 70% = possibilidade de chuva\n "
+          "- entre 30 e 50% = estado ideal\n - entre 51 e 69% = em alerta de chuva\n"
+          "\nTemperatura:\n - entre 25 e 50ºC = normal\n - acima de 80ºC = temperatura elevada\n - "
+          "abaixo de 25ºC = temperatura baixa\n - entre 51 e 79 = temperatura em alerta\n"
+          "\nProximidade:\n - acima ou igual a 200m = destroços não detectados\n - abaixo de 200m = "
+          "objeto detectado\n - abaixo ou igual a 50m = destroços detectados\n")
 ```
 
-Função para exibir informações sobre um diagrama.
+Exibe uma explicação detalhada sobre os padrões de níveis de umidade, temperatura e proximidade com base em diferentes faixas, fornecendo informações sobre as condições climáticas e de proximidade.
 <hr>
 
 ```c
-def exibir_resultado(local_circuito):
-        print(f"\nResultado: O circuito de(o) {lista_circuitos[local_circuito]} está com "
-              f"umidade de {sensor_DHT_umidade[local_circuito]}%, "
-              f"temperatura está em {sensor_DHT_temp[local_circuito]}ºC, "
-              f"e a distância do sensor de proximidade é de {sensor_proximidade_destrocos[local_circuito]} metros\n")
+def print_de_opcoes_circuitos(circuitos):
+    print("\nCircuitos disponíveis:")
+    for id_circuito, dados in circuitos.items():
+        print(f"{id_circuito} - {dados['nome']}")
 ```
 
-Função para exibir os resultados dos circuitos.
+Exibe a lista de circuitos disponíveis, imprimindo o nome de cada circuito e seu respectivo ID.
 <hr>
 
 ```c
-def exibir_dado_especifico(local_circuito, dado_especifico):
-        if dado_especifico == '1':
-            print("Umidade:\n - abaixo de 30% = ambiente seco\n - acima de 70% = possibilidade de chuva\n - entre 30 e 50% = estado ideal\n - entre 51 e 69% = em alerta de chuva\n"
-                  f"Umidade está em {sensor_DHT_umidade[local_circuito]}%\n")
-        elif dado_especifico == '2':
-            print("Temperatura:\n - entre 25 e 50ºC = normal\n - acima de 80ºC = temperatura elevada\n - " 
-                  "abaixo de 25ºC = temperatura abaixo\n - entre 51 e 79 = temperatura em alerta\n"
-                  f"Temperatura está em {sensor_DHT_temp[local_circuito]}ºC\n")
-        elif dado_especifico == '3':
-            print("Proximidade:\n - acima ou igual a 200m = destroços não detectados\n - abaixo de 200m = "
-                  "objeto detectado\n - abaixo ou igual a 50m = destroços detectados\n"
-                  f"Distância do sensor de proximidade é de {sensor_proximidade_destrocos[local_circuito]} metros\n")
+def exibir_resultado(circuito_id):
+    dados = circuitos[circuito_id]
+    print(f"\nResultado: O circuito de {dados['nome']} está com umidade de {dados['umidade']}%, "
+          f"temperatura de {dados['temperatura']}ºC, e proximidade de {dados['proximidade']} metros.")
 ```
 
-Função para exibir um dado específico de um circuito (umidade, temperatura, proximidade) escolhido pelo usuário.
+Exibe o resultado detalhado das condições climáticas e de proximidade para um circuito específico, identificado pelo `circuito_id`.
 <hr>
 
 ```c
-def exibir_dados_piloto(local_piloto):
-        print(f"\nDados do piloto {lista_pilotos[local_piloto]}:\n"
-              f"Equipe: {equipe_pilotos[local_piloto]}\n"
-              f"Colocação: {colocacao_pilotos[local_piloto]}\n"
-              f"Pontos: {pontos_pilotos[local_piloto]}\n")
+def print_de_opcoes_pilotos(pilotos):
+    print("\nPilotos disponíveis:")
+    for piloto_id, dados in pilotos.items():
+        print(f"{piloto_id} - {dados['nome']}")
 ```
 
-Função para exibir os dados de um piloto escolhido pelo usuário.
-<br>
-O código entra em um loop enquanto o usuário quiser continuar exibindo dados.
+Exibe a lista de pilotos disponíveis, mostrando seus IDs e nomes.
 <hr>
 
 ```c
- while True:
-        escolha_tipo_dado = forca_opcao("Deseja acessar dados do circuito ou dos pilotos? (1 - Circuito, 2 - Pilotos)\n--> ",
-                                        lista_tipo_dados, "Opção inválida! Digite 1 para Circuito ou 2 para Pilotos.")
-        if escolha_tipo_dado == '1':
-            escolha_circuito = forca_opcao("Digite um circuito que deseja procurar dados\n --> ", lista_circuitos, "Opção Inválida!\nPor favor, escolha um dos circuitos disponíveis:\n" + print_de_opcoes(lista_circuitos))
-            local_circuito = meu_index(lista_circuitos, escolha_circuito)
-            escolha_tipo_dados = forca_opcao("Você deseja ver opções detalhadas ou específicas? (1 - opções detalhadas e 2 - opções específicas)\n--> ",
-                                             lista_tipo_dados, "Digite apenas os números correspondentes ao caminho indicado")
-            if escolha_tipo_dados == '1':
+def exibir_dados_piloto(piloto_id):
+    dados = pilotos[piloto_id]
+    print(f"\nDados do piloto {dados['nome']}:\n"
+          f"Equipe: {dados['equipe']}\n"
+          f"Nacionalidade: {dados['nacionalidade']}\nColocação: {dados['colocacao']}\nPontos: {dados['pontos']}")
+```
+
+Exibe os detalhes de um piloto específico, incluindo equipe, nacionalidade, colocação e pontos.
+<hr>
+
+```c
+def sys_dados():
+    print(f"Bem-vindo ao banco de dados Mahindra Racing!")
+    while True:
+        tipo_dado = forca_opcao("Deseja acessar dados do circuito ou dos pilotos? (1 - Circuito, 2 - Pilotos)\n--> ",
+                                ['1', '2'], "Opção inválida!")
+        if tipo_dado == '1':
+            print_de_opcoes_circuitos(circuitos)
+            circuito_id = forca_opcao("Digite o ID do circuito:\n--> ", circuitos.keys(), "Circuito inválido!")
+            tipo_exibicao = forca_opcao("Você deseja ver opções detalhadas (1) ou específicas (2)?\n--> ", ['1', '2'],
+                                        "Opção inválida!")
+            if tipo_exibicao == '1':
                 exibir_diagrama()
-                exibir_resultado(local_circuito)
-            elif escolha_tipo_dados == '2':
-                dados_especifico = forca_opcao("Qual dado você deseja procurar?\n 1 - Umidade\n 2 - Temperatura\n 3 - Proximidade\n--> ",
-                                               lista_dados_especificos, "Digite apenas os números correspondentes ao caminho indicado")
-                exibir_dado_especifico(local_circuito, dados_especifico)
-        
-        elif escolha_tipo_dado == '2':
-            escolha_piloto = forca_opcao("Digite o piloto que deseja procurar dados\n --> ", lista_pilotos, "Opção inválida!\nPor favor, escolha um dos pilotos disponíveis:\n" + print_de_opcoes(lista_pilotos))
-            local_piloto = meu_index(lista_pilotos, escolha_piloto)
-            exibir_dados_piloto(local_piloto)
-
-        escolha_dados = forca_opcao("O que você deseja fazer?\n 1 - Nova pesquisa\n 0 - Voltar para o menu\n--> ",
-                                    lista_dados_opcao, "Opção inválida! Digite apenas os números correspondentes ao caminho indicado")
-        if escolha_dados == '1':
-            continue
-        elif escolha_dados == '0':
+                exibir_resultado(circuito_id)
+            else:
+                dado = forca_opcao("Qual dado específico deseja ver?\n1 - Umidade\n2 - Temperatura\n3 - Proximidade\n--> ",
+                                   ['1', '2', '3'], "Opção inválida!")
+                if dado == '1':
+                    print(f"Umidade: {circuitos[circuito_id]['umidade']}%")
+                elif dado == '2':
+                    print(f"Temperatura: {circuitos[circuito_id]['temperatura']}ºC")
+                elif dado == '3':
+                    print(f"Proximidade: {circuitos[circuito_id]['proximidade']} metros")
+        elif tipo_dado == '2':
+            print_de_opcoes_pilotos(pilotos)
+            piloto_id = forca_opcao("Digite o ID do piloto:\n--> ", pilotos.keys(), "ID do piloto inválido!")
+            exibir_dados_piloto(piloto_id)
+        continuar = forca_opcao("Deseja fazer uma nova pesquisa? (1 - Sim, 0 - Não)\n--> ", ['1', '0'], "Opção inválida!")
+        if continuar == '0':
             break
 ```
 
-Loop Principal:
-<ul>
-    <li>O usuário escolhe entre acessar dados de circuito ou pilotos.</li>
-    <li>Se escolher circuito, ele seleciona um circuito específico e pode optar por ver opções detalhadas ou específicas sobre esse circuito.</li>
-    <li>Se escolher opções detalhadas, mostra um diagrama e os resultados do circuito.</li>
-    <li>Se escolher opções específicas, mostra um dado específico sobre o circuito (umidade, temperatura, proximidade).</li>
-    <li>Se escolher pilotos, ele seleciona um piloto específico e mostra os dados desse piloto.</li>
-    <li>Após a exibição dos dados, o usuário pode optar por fazer uma nova pesquisa ou voltar ao menu principal.</li>
-</ul>
+Uma função de controle principal que permite ao usuário escolher entre visualizar dados de circuitos ou pilotos. Dependendo da escolha do usuário, permite visualizar informações detalhadas ou específicas de um circuito ou piloto.
 <hr>
 
-## Explicando o <a href="https://github.com/Formula-E-Mahindra-Racing/Sprint1-Python/blob/main/shop.py">Código</a> 🧑‍💻
+## Explicando o <a href="path">Código</a> 🧑‍💻
 
 Essa seção implementa uma loja virtual para a equipe Mahindra Racing, onde os usuários podem comprar itens como canecas, camisetas e ingressos usando a moeda virtual Mahindra Coins (MC). 
 <br>
 
 ```c
-from helpers import print_de_opcoes, forca_opcao, limpar_tela, verifica_numero
+def adicionar_ao_carrinho(usuario, id_produto, quantidade):
+    if id_produto not in usuario["carrinho"]:
+        usuario["carrinho"][id_produto] = 0
+    usuario["carrinho"][id_produto] += quantidade
 ```
-Este trecho importa funções utilitárias de um módulo chamado `helpers`.
 
+Adiciona um produto ao carrinho de compras do usuário. Se o produto já estiver no carrinho, aumenta a quantidade.
 <hr>
 
 ```c
-def desconto_final(number, discount):
-    number = number - (number * (discount / 100))
-    return number
-```
-
-Calcula o valor final após a aplicação de um desconto percentual (`discount`) sobre um valor (`number`).
-<hr>
-
-```c
-def loja(primeira_vez=True):
-    if primeira_vez:
-        print('Seja bem vindo!! Esta é a loja da Mahindra Racing\nPor aqui, você pode\n - Comprar Canecas, Camisetas e até ingressos para a próxima corrida de Fórmula-E\n - Aqui usamos a Mahindra Coins(MC) como moeda para compra desses produtos.\n\n')
-
-    preco_caneca = 390
-    preco_ticket = 2000
-    preco_camiseta = 500
-    preco_bone = 130
-
-    precos = [preco_caneca, preco_ticket, preco_camiseta, preco_bone]
-    total = 0
-
-    coisas_para_comprar = [
-        f'(1). Caneca com a logo da Mahindra -> {preco_caneca}MC',
-        f'(2). Ticket para a próxima corrida -> {preco_ticket}MC',
-        f'(3). Camiseta com a logo da Mahindra -> {preco_camiseta}MC',
-        f'(4). Boné da escuderia Mahindra -> {preco_bone}MC',
-        '(5). Sair...'
-    ]
-
-    while True:
-        sub_total = 0
-        output_opcoes = print_de_opcoes(coisas_para_comprar)
-        opcao_de_compra = forca_opcao(
-            '', ['1', '2', '3', '4', '5'], 'Por favor, escolha somente os números: 1, 2, 3, 4, 5\n' + output_opcoes)
-        if opcao_de_compra == '5':
-            break
-
-        quantidade = verifica_numero(
-            'Quantos gostaria de adicionar ao carrinho?\n-->', 'Por favor, digite somente números inteiros')
-        sub_total = precos[int(opcao_de_compra) - 1] * quantidade
-
-        total += sub_total
-        print(f'O subtotal é: {total}')
-
-        continuar_comprando = forca_opcao(
-            'Gostaria de continuar comprando (s/n)?\n-->', ['s', 'n'], 'Por favor, escolha somente uma das letras: s, n\n')
-        if continuar_comprando == 's':
-            limpar_tela()
-            continue
+def finalizar_compra(usuario):
+    total_compra = 0
+    itens_comprados = []
+    for id_produto, quantidade in usuario["carrinho"].items():
+        preco = produtos[id_produto]["preco"]
+        estoque = produtos[id_produto]["estoque"]
+        if quantidade <= estoque:
+            total_compra += quantidade * preco
+            produtos[id_produto]["estoque"] -= quantidade
+            itens_comprados.append((produtos[id_produto]["nome"], quantidade, preco))
         else:
-            desconto = 0
-            if total < 200:
-                desconto = 2
-            elif total < 1000:
-                desconto = 8
-            elif total < 2000:
-                desconto = 12
-            else:
-                desconto = 15
-
-            total = desconto_final(total, desconto)
-            print(f'Um desconto de {desconto}% foi aplicado.')
-            print(f'O total é: {total:.2f}MCs\nMuito obrigado e volte sempre')
-            break
-    return
+            print(f"Quantidade de {produtos[id_produto]['nome']} insuficiente no estoque. Sua compra será ajustada.")
+            usuario["carrinho"][id_produto] = estoque
+            total_compra += estoque * preco
+            produtos[id_produto]["estoque"] = 0
+            itens_comprados.append((produtos[id_produto]["nome"], estoque, preco))
+    if usuario["MCs"] >= total_compra:
+        usuario["MCs"] -= total_compra
+        usuario["saldo_compras"].append({"itens": itens_comprados, "total": total_compra})
+        usuario["carrinho"] = {}  
+        print(f"Compra realizada com sucesso! Total: {total_compra} MCs")
+    else:
+        print("Você não tem Mahindra Coins suficientes para esta compra.")
 ```
 
-<ul>
-    <li>A função principal `loja()` simula a operação da loja.</li>
-    <li>Se for a primeira vez que o usuário acessa a loja, uma mensagem de boas-vindas é exibida.</li>
-    <li>Define os preços dos produtos e inicializa uma lista de preços e uma lista de itens disponíveis para compra.</li>
-    <li>Inicia um loop onde o usuário pode selecionar itens para comprar.</li>
-    <li>Mostra as opções de compra utilizando a função `print_de_opcoes()`.</li>
-    <li>Solicita a escolha do usuário utilizando a função `forca_opcao()`.</li>
-    <li>Solicita a quantidade do item a ser comprado e calcula o subtotal.</li>
-    <li>Atualiza o total da compra e exibe o subtotal.</li>
-    <li>Pergunta ao usuário se deseja continuar comprando ou finalizar.</li>
-    <li>Se o usuário optar por finalizar, aplica um desconto baseado no valor total da compra.</li>
-    <li>Exibe o total final após o desconto e uma mensagem de agradecimento.</li>
-</ul>
+Finaliza a compra dos produtos no carrinho do usuário. Verifica se a quantidade de itens no carrinho está disponível no estoque, ajusta o carrinho se necessário e atualiza o estoque.
+Deduz o total da compra do saldo de Mahindra Coins (MCs) do usuário, esvaziando o carrinho após a compra.
+<hr>
+
+```c
+def exibir_compras_passadas(usuario):
+    if not usuario["saldo_compras"]:
+        print("Nenhuma compra realizada.")
+    else:
+        for id, compra in enumerate(usuario["saldo_compras"], start=1):
+            print(f"\nCompra {id}:")
+            for item in compra["itens"]:
+                print(f"- Produto: {item[0]}, Quantidade: {item[1]}, Preço: {item[2]} MCs /cada")
+            print(f"Total da compra: {compra['total']} MCs")
+        print(f"Saldo restante: {usuario['MCs']} MCs")
+```
+
+Exibe as compras passadas do usuário. Para cada compra, exibe os itens comprados, suas quantidades, preços e o total gasto, além de mostrar o saldo restante de MCs.
+<hr>
+
+```c
+def adicionar_produto():
+    id_produto = input("Digite o ID do novo produto: ")
+    nome_produto = input("Digite o nome do novo produto: ")
+    preco = float(input("Digite o preço do produto: "))
+    estoque = int(input("Digite a quantidade em estoque: "))
+    if id_produto in produtos:
+        print("Produto já existe. Use 'modificar' para alterar o produto existente.")
+    else:
+        produtos[id_produto] = {"nome": nome_produto, "preco": preco, "estoque": estoque}
+        print(f"Produto {nome_produto} adicionado com sucesso!")
+```
+
+Permite a um administrador adicionar um novo produto à loja, solicitando ID, nome, preço e estoque.
+<hr>
+
+```c
+def modificar_estoque():
+    id_produto = input("Digite o ID do produto que deseja modificar o estoque: ")
+    if id_produto in produtos:
+        novo_estoque = int(input("Digite a nova quantidade em estoque: "))
+        produtos[id_produto]["estoque"] = novo_estoque
+        print(f"Estoque do produto {produtos[id_produto]['nome']} atualizado para {novo_estoque}.")
+        novo_preco = float(input("Digite o novo preço: "))
+        produtos[id_produto]["preco"] = novo_preco
+        print(f"Preço do produto {produtos[id_produto]['nome']} atualizado para {novo_preco}.")
+    else:
+        print("Produto não encontrado.")
+```
+
+Permite a um administrador modificar o estoque e o preço de um produto existente.
+<hr>
+
+```c
+def loja(usuario):
+    print(f"Bem-vindo à loja da Mahindra Racing, {usuario['username']}!")
+    print(f"Seu saldo atual é: {usuario['MCs']} MCs")
+    while True:
+        print("\nProdutos disponíveis:")
+        for id_produto, info in produtos.items():
+            print(f"- ID: {id_produto} | {info['nome']} : {info['preco']} MCs (Estoque: {info['estoque']})")
+        if usuario["admin"]:
+            admin_opcao = input("Você deseja adicionar ou modificar produtos? (s/n): ").lower()
+            if admin_opcao == 's':
+                admin_action = input("Digite 'adicionar' para adicionar produtos ou 'modificar' para alterar estoque: ").lower()
+                if admin_action == "adicionar":
+                    adicionar_produto()
+                elif admin_action == "modificar":
+                    modificar_estoque()
+        while True:
+            for id_produto, info in produtos.items():
+                print(f"- ID: {id_produto} | {info['nome']} : {info['preco']} MCs (Estoque: {info['estoque']})")
+            escolha = input("\nDigite o ID do produto que deseja comprar, 'compras' para ver suas compras, ou 'sair' para sair: ").lower()
+            if escolha == "sair":
+                print("Saindo da loja...")
+                return
+            if escolha == "compras":
+                exibir_compras_passadas(usuario)
+                continue
+            if escolha in produtos:
+                try:
+                    quantidade = int(input(f"Quantas unidades de {produtos[escolha]['nome']} você deseja adicionar ao carrinho? "))
+                except ValueError:
+                    print("Por favor, insira um número válido para a quantidade.")
+                    continue
+                if quantidade <= produtos[escolha]["estoque"]:
+                    adicionar_ao_carrinho(usuario, escolha, quantidade)
+                    print(f"{quantidade} unidade(s) de {produtos[escolha]['nome']} adicionada(s) ao carrinho.")
+                else:
+                    print("Quantidade em estoque insuficiente.")
+            else:
+                print("Produto não encontrado.")
+            continuar = input("Deseja continuar comprando? (s/n): ").lower()
+            if continuar == 'n':
+                finalizar_compra(usuario)
+                break 
+        if escolha == "sair":
+            break
+```
+
+Exibe a loja, mostrando os produtos disponíveis com seus respectivos preços e quantidades em estoque. Se o usuário for um administrador, oferece opções de adicionar ou modificar produtos.
+<hr>
+
+```c
+produtos = {
+    "1" : {"nome": "Caneca com a logo da Mahindra", "preco": 2000.0, "estoque": 50},
+    "2" : {"nome": "Ingresso Formula E", "preco": 100000.0, "estoque": 3},
+    "3" : {"nome": "Camiseta com a logo da Mahindra", "preco": 5000.0, "estoque": 15},
+    "4" : {"nome": "Boné da escuderia Mahindra", "preco": 2500.0, "estoque": 25},
+    "5" : {"nome": "Chaveiro com o símbolo da Mahindra", "preco": 500.0, "estoque": 100},
+    "6" : {"nome": "Adesivo Mahindra Racing", "preco": 250.0, "estoque": 100}
+}
+```
+
+Um dicionário que armazena o catálogo de produtos da loja virtual, onde as chaves são os IDs do respectivo produto, e os valores são outros dicionários contendo nome, preço e estoque do produto.
 <hr>
 
 <center>Este projeto encontra sob a <a href="path">MIT License.</a></center>
