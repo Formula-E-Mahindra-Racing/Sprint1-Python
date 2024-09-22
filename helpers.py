@@ -16,7 +16,6 @@ def meu_index(lista, buscar):
             return i
     return False
 
-
 def verifica_numero(msg, msg_erro):
     while True:
         num = input(msg)

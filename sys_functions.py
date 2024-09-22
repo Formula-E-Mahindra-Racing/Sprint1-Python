@@ -1,4 +1,4 @@
-from helpers import forca_opcao, print_de_opcoes
+from helpers import forca_opcao
 
 def exibir_diagrama():
     print("\nDiagrama de informações:\n"

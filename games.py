@@ -30,7 +30,7 @@ def game_forca():
     return False
 
 def game_adivinhe_numero():
-    number = random.randint(1, 100)  # a random number
+    number = random.randint(1, 100)
     tries = 10
     print("\nBem vindo ao Formula Adivinha!\nRegras: você terá que adivinhar um número entre 1 e 100 e nós te diremos se está muito alto ou muito baixo")
     while tries > 0:
