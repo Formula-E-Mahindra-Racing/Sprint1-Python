@@ -71,8 +71,8 @@ def games_menu(usuario):
         choice = input("Digite o número da escolha: ")
         if choice in games:
             if games[choice]["game"]():
-                play_again = input("Deseja jogar novamente? (y/n): ")
-                if play_again.lower() == "y":
+                play_again = input("Deseja jogar novamente? (s/n): ")
+                if play_again.lower() == "s":
                     limpar_tela()
                     continue
                 else:
@@ -82,8 +82,8 @@ def games_menu(usuario):
                         print(f"{usuario['username']}, por ter jogado pela primeira vez algum de nossos jogos, você receberá 1000 MCs de bônus")
                     break
             else:
-                play_again = input("Deseja jogar novamente? (y/n): ")
-                if play_again.lower() == "y":
+                play_again = input("Deseja jogar novamente? (s/n): ")
+                if play_again.lower() == "s":
                     limpar_tela()
                     continue
                 else:
