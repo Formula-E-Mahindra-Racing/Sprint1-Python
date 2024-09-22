@@ -29,7 +29,7 @@ Um app em Python, feito para a Mahindra Racing/Tech Mahindra, que dá ao usuári
  
 <br>
 
-## Explicando o <a href="path">Código</a> 🧑‍💻
+## Explicando o <a href="https://github.com/Formula-E-Mahindra-Racing/Sprint1-Python/blob/main/helpers.py">Código</a> 🧑‍💻
  
 ```c
 def limpar_tela(linhas=10):
@@ -84,7 +84,7 @@ Imprime uma lista de itens, um por linha se `line_break` for `True` (padrão), o
 Retorna a string formatada para possível reutilização.
 <hr>
 
-## Explicando o <a href="path">Código</a> 🧑‍💻
+## Explicando o <a href="https://github.com/Formula-E-Mahindra-Racing/Sprint1-Python/blob/main/cadastro_login.py">Código</a> 🧑‍💻
 
 ```c
 def cadastrar_usuario():
@@ -159,7 +159,7 @@ usuarios = {
 Um dicionário que armazena informações dos usuários, onde as chaves são os nomes de usuário, e os valores são outros dicionários contendo senha, email, permissões de administrador, saldo de compras, Mahindra Coins e o carrinho de compras.
 <hr>
 
-## Explicando o <a href="path">Código</a> 🧑‍💻
+## Explicando o <a href="https://github.com/Formula-E-Mahindra-Racing/Sprint1-Python/blob/main/app.py">Código</a> 🧑‍💻
 
 ```c
 from helpers import forca_opcao, limpar_tela
@@ -218,7 +218,7 @@ Login/Cadastro: O usuário começa no menu de login/cadastro. Caso já tenha uma
 Menu Principal: Após o login, o usuário é direcionado ao menu principal (que é gerido em outro arquivo), onde pode acessar as funções de Banco de Dados (para consultar informações sobre circuitos e pilotos) ou a Loja (para gastar seus Mahindra Coins).
 <hr>
 
-## Explicando o <a href="path">Código</a> 🧑‍💻
+## Explicando o <a href="https://github.com/Formula-E-Mahindra-Racing/Sprint1-Python/blob/main/games.py">Código</a> 🧑‍💻
 
 Essa seção implementa três mini-games temáticos.
 
@@ -366,7 +366,7 @@ Loop Principal:
 </ul>
 <hr>
 
-## Explicando o <a href="path">Código</a> 🧑‍💻
+## Explicando o <a href="https://github.com/Formula-E-Mahindra-Racing/Sprint1-Python/blob/main/game_dictionaries.py">Código</a> 🧑‍💻
 Essa seção implementa os dicionários de informações importantes usados para os minigames.
 ```c
 dict_game_forca = {
@@ -385,7 +385,7 @@ dict_game_complete_frase = {
 ```
 <hr>
 
-## Explicando o <a href="path">Código</a> 🧑‍💻
+## Explicando o <a href="https://github.com/Formula-E-Mahindra-Racing/Sprint1-Python/blob/main/sys_functions.py">Código</a> 🧑‍💻
 
 Essa seção implementa um sistema de exibição de dados sobre os circuitos e pilotos.
 
@@ -486,7 +486,7 @@ def sys_dados():
 Uma função de controle principal que permite ao usuário escolher entre visualizar dados de circuitos ou pilotos. Dependendo da escolha do usuário, permite visualizar informações detalhadas ou específicas de um circuito ou piloto.
 <hr>
 
-## Explicando o <a href="path">Código</a> 🧑‍💻
+## Explicando o <a href="https://github.com/Formula-E-Mahindra-Racing/Sprint1-Python/blob/main/shop.py">Código</a> 🧑‍💻
 
 Essa seção implementa uma loja virtual para a equipe Mahindra Racing, onde os usuários podem comprar itens como canecas, camisetas e ingressos usando a moeda virtual Mahindra Coins (MC). 
 <br>
