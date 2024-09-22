@@ -26,7 +26,6 @@ Um app em Python, feito para a Mahindra Racing/Tech Mahindra, que dá ao usuári
     <li>sys_functions.py</li>
     <li>shop.py</li>
 </ul>
- 
 <br>
 
 ## Explicando o <a href="https://github.com/Formula-E-Mahindra-Racing/Sprint1-Python/blob/main/helpers.py">Código</a> 🧑‍💻
