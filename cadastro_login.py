@@ -14,6 +14,7 @@ def cadastrar_usuario():
         "senha": senha, 
         "email": email, 
         "admin": is_admin, 
+        "primeira_vez": True,
         "saldo_compras": [], 
         "MCs": mcs_inicial, 
         "carrinho": {}
@@ -28,7 +29,7 @@ def login():
         return None  
     senha = input("Digite sua senha: ")
     if usuarios[username]["senha"] == senha:
-        print(f"Bem-vindo, {username}!")
+        print(f"\nBem-vindo, {username}!")
         return {"username" : username, **usuarios[username]}  
     else:
         print("Senha incorreta!")
@@ -39,14 +40,16 @@ usuarios = {
         "senha": "admin123", 
         "email": "admin@example.com", 
         "admin": True, 
+        "primeira_vez": True,
         "saldo_compras": [], 
-        "MCs": 0, 
+        "MCs": 200000, 
         "carrinho": {}
     },
     "user1": {
         "senha": "userpass", 
         "email": "user1@example.com", 
         "admin": False, 
+        "primeira_vez": True,
         "saldo_compras": [], 
         "MCs": 0, 
         "carrinho": {}

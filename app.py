@@ -7,7 +7,7 @@ from games import games_menu
 nome_da_empresa = "Mahindra Racing"
 usuario = None  
 while True:
-    limpar_tela()
+    print()
     if usuario:
         print(f"Seja bem-vindo(a), {usuario['username']} à {nome_da_empresa}!")
     else:
@@ -20,7 +20,10 @@ while True:
                           "0 - Sair\n--> ", ['1', '2', '3', '4', '0'], "Opção inválida!")
     limpar_tela()
     if caminho == '1':
-        games_menu()
+        if usuario:
+            games_menu(usuario)
+        else:
+            print('\nVocê precisa estar logado para jogar.')
     elif caminho == '2':
         sys_dados()
     elif caminho == '3':

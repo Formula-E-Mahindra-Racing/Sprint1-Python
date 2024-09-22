@@ -2,6 +2,7 @@
 import random
 from helpers import meu_index, limpar_tela
 from game_dictionaries import dict_game_forca, dict_game_complete_frase
+from cadastro_login import usuarios
 
 
 def game_forca():
@@ -9,7 +10,7 @@ def game_forca():
     index = meu_index(dict_game_forca['words'], word)
     guessed = ["_"] * len(word)
     tries = 10
-    print("Bem vindo a Formula Forca!\nComo jogar: digite letras individualmente até alguma dela aparecer no display,\nfaça isso até formar a palavra completa.\nAtenção!\nHá adivinhações com duas palavras nas quais elas não possuirão espaço\nAs palavras não possuem assento ou 'ç'\n")
+    print("\nBem vindo a Formula Forca!\nComo jogar: digite letras individualmente até alguma dela aparecer no display,\nfaça isso até formar a palavra completa.\nAtenção!\nHá palavras com mais de uma palavra, essas não possuirão espaço entre elas\nAs palavras não possuem assento ou 'ç'\n")
     while tries > 0:
         print(" ".join(guessed))
         print(f"Dica: {dict_game_forca['tips'][index]}")
@@ -33,7 +34,7 @@ def game_forca():
 def game_adivinhe_numero():
     number = random.randint(1, 100)  # a random number
     tries = 10
-    print("Bem vindo ao Formula Adivinha!\nRegras: você terá que adivinhar um número entre 1 e 100 e nós te diremos se está muito alto ou muito baixo")
+    print("\nBem vindo ao Formula Adivinha!\nRegras: você terá que adivinhar um número entre 1 e 100 e nós te diremos se está muito alto ou muito baixo")
     while tries > 0:
         guess = int(input(f"Você tem {tries} tentativas\nDiga um número entre 1 e 100:\n--> "))
         if guess == number:
@@ -54,7 +55,7 @@ def game_complete_frase():
     index = meu_index(dict_game_complete_frase['words'], palavra)
     frase = dict_game_complete_frase['phrases'][index]
     dica = dict_game_complete_frase['tips'][index]
-    print("Bem vindo ao Formula Frase!\nNesse jogo será mostrado uma frase incompleta e o jogador deverá completa-la com uma palavra\nSomente uma dica sobre a palavra será mostrada\n")
+    print("\nBem vindo ao Formula Frase!\nNesse jogo será mostrado uma frase incompleta e o jogador deverá completa-la com uma palavra\nSomente uma dica sobre a palavra será mostrada\n")
     while True:
         print(f"Dica para a palavra: {dica}")
         guess = input(f"Complete a frase: {frase}\n--> ").lower()
@@ -73,7 +74,7 @@ games = {
 }
 
 
-def games_menu():
+def games_menu(usuario):
     while True:
         print("Escolha um jogo:")
         for key, game in games.items():
@@ -86,6 +87,10 @@ def games_menu():
                     limpar_tela()
                     continue
                 else:
+                    if usuario['primeira_vez']:
+                        usuario['primeira_vez'] = False
+                        usuario['MCs'] += 1000
+                        print(f"{usuario['username']}, por ter jogado pela primeira vez algum de nossos jogos, você receberá 1000 MCs de bônus")
                     break
             else:
                 play_again = input("Deseja jogar novamente? (y/n): ")
@@ -93,8 +98,11 @@ def games_menu():
                     limpar_tela()
                     continue
                 else:
+                    if usuario['primeira_vez']:
+                        usuario['primeira_vez'] = False
+                        usuario['MCs'] += 1000
+                        print(f"{usuario['username']}, por ter jogado pela primeira vez algum de nossos jogos, você receberá 1000 MCs de bônus")
                     break
         else:
             print("Opção inválida. Tente novamente!")
     return
-game_complete_frase()
