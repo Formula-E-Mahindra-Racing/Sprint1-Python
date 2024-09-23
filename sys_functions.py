@@ -31,21 +31,22 @@ def exibir_dados_piloto(piloto_id):
           f"Nacionalidade: {dados['nacionalidade']}\nColocação: {dados['colocacao']}\nPontos: {dados['pontos']}")
 
 def sys_dados():
+    opcoes = ['0', '1', '2', '3']
     print(f"Bem-vindo ao banco de dados Mahindra Racing!")
     while True:
         tipo_dado = forca_opcao("Deseja acessar dados do circuito ou dos pilotos? (1 - Circuito, 2 - Pilotos)\n--> ",
-                                ['1', '2'], "Opção inválida!")
+                                opcoes, "Opção inválida!")
         if tipo_dado == '1':
             print_de_opcoes_circuitos(circuitos)
             circuito_id = forca_opcao("Digite o ID do circuito:\n--> ", circuitos.keys(), "Circuito inválido!")
-            tipo_exibicao = forca_opcao("Você deseja ver opções detalhadas (1) ou específicas (2)?\n--> ", ['1', '2'],
+            tipo_exibicao = forca_opcao("Você deseja ver opções detalhadas (1) ou específicas (2)?\n--> ", opcoes,
                                         "Opção inválida!")
             if tipo_exibicao == '1':
                 exibir_diagrama()
                 exibir_resultado(circuito_id)
             else:
                 dado = forca_opcao("Qual dado específico deseja ver?\n1 - Umidade\n2 - Temperatura\n3 - Proximidade\n--> ",
-                                   ['1', '2', '3'], "Opção inválida!")
+                                   opcoes, "Opção inválida!")
                 if dado == '1':
                     print(f"Umidade: {circuitos[circuito_id]['umidade']}%")
                 elif dado == '2':
@@ -56,7 +57,7 @@ def sys_dados():
             print_de_opcoes_pilotos(pilotos)
             piloto_id = forca_opcao("Digite o ID do piloto:\n--> ", pilotos.keys(), "ID do piloto inválido!")
             exibir_dados_piloto(piloto_id)
-        continuar = forca_opcao("Deseja fazer uma nova pesquisa? (1 - Sim, 0 - Não)\n--> ", ['1', '0'], "Opção inválida!")
+        continuar = forca_opcao("Deseja fazer uma nova pesquisa? (1 - Sim, 0 - Não)\n--> ", opcoes, "Opção inválida!")
         if continuar == '0':
             break
 

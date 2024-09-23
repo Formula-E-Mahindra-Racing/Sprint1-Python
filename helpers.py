@@ -1,4 +1,4 @@
-def limpar_tela(linhas=20):
+def limpar_tela(linhas=10):
     print("\n" * linhas)
 
 def forca_opcao(msg, opcoes, msg_erro):

@@ -1,4 +1,3 @@
-# Formula-themed games
 import random
 from helpers import meu_index, limpar_tela
 from game_dictionaries import dict_game_forca, dict_game_complete_frase
