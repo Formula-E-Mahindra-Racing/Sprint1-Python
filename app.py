@@ -1,9 +1,10 @@
 from helpers import forca_opcao, limpar_tela
 from sys_functions import sys_dados
 from cadastro_login import cadastrar_usuario, login
-from shop import loja, produtos
+from shop import loja, produtos_disponiveis, produtos
 from games import games_menu
 
+opcoes = ['0', '1', '2', '3', '4']
 nome_da_empresa = "Mahindra Racing"
 usuario = None  
 while True:
@@ -17,7 +18,7 @@ while True:
                           "2 - Dados\n"
                           "3 - Loja\n"
                           "4 - Cadastro/Login\n"
-                          "0 - Sair\n--> ", ['1', '2', '3', '4', '0'], "Opção inválida!")
+                          "0 - Sair\n--> ", opcoes, "Opção inválida!")
     limpar_tela()
     if caminho == '1':
         if usuario:
@@ -30,11 +31,10 @@ while True:
         if usuario:
             loja(usuario)
         else:
-            for id_produto, info in produtos.items():
-                print(f"- ID: {id_produto} | {info['nome']} : {info['preco']} MCs (Estoque: {info['estoque']})")
+            produtos_disponiveis()
             print("\nVocê precisa estar logado para acessar as funcionalidades da loja.")
     elif caminho == '4':
-        opcao_login = forca_opcao("1 - Cadastro\n2 - Login\n--> ", ['1', '2'], "Opção inválida!")
+        opcao_login = forca_opcao("1 - Cadastro\n2 - Login\n--> ", opcoes, "Opção inválida!")
         if opcao_login == '1':
             usuario_atual = cadastrar_usuario()
             if usuario_atual:

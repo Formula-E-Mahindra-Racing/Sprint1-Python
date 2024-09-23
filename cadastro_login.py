@@ -1,15 +1,23 @@
 def cadastrar_usuario():
-    username = input("Digite o nome de usuário para cadastro: ")
+    def solicitar_input(mensagem):
+        while True:
+            entrada = input(mensagem).strip()
+            if entrada:
+                return entrada
+            else:
+                print("Este campo não pode ficar vazio.")
+    username = solicitar_input("Digite o nome de usuário para cadastro:\n--> ")
     if username in usuarios:
         print("Usuário já existe!")
         return None  
-    senha = input("Digite sua senha: ")
-    email = input("Digite seu email: ")
-    is_admin = input("O usuário é admin? (s/n): ").lower() == 's'
+    senha = solicitar_input("Digite sua senha:\n--> ")
+    email = solicitar_input("Digite seu email:\n--> ")
+    is_admin = solicitar_input("O usuário é admin? (s/n):\n--> ").lower() == 's'
     if is_admin:
         mcs_inicial = 200000  
     else:
         mcs_inicial = 2500
+
     usuarios[username] = {
         "senha": senha, 
         "email": email, 
@@ -17,17 +25,24 @@ def cadastrar_usuario():
         "primeira_vez": True,
         "saldo_compras": [], 
         "MCs": mcs_inicial, 
-        "carrinho": {}
+        "carrinho": {},
+        "endereco": {
+            "estado": '',
+            "rua": '',
+            "numero": '',
+            "complemento": '',
+            "cep": ''
+        }
     }
     print("Cadastro realizado com sucesso!")
     return login()
 
 def login():
-    username = input("Digite o nome de usuário: ")
+    username = input("Digite o nome de usuário:\n--> ")
     if username not in usuarios:
         print("Usuário não encontrado!")
         return None  
-    senha = input("Digite sua senha: ")
+    senha = input("Digite sua senha:\n--> ")
     if usuarios[username]["senha"] == senha:
         print(f"\nBem-vindo, {username}!")
         return {"username" : username, **usuarios[username]}  
@@ -43,7 +58,14 @@ usuarios = {
         "primeira_vez": True,
         "saldo_compras": [], 
         "MCs": 200000, 
-        "carrinho": {}
+        "carrinho": {},
+        "endereco": {
+            "estado": 'estado',
+            "rua": 'rua',
+            "numero": 'numero',
+            "complemento": 'complemento',
+            "cep": 'cep'
+        }
     },
     "user": {
         "senha": "userpass", 
@@ -52,6 +74,13 @@ usuarios = {
         "primeira_vez": True,
         "saldo_compras": [], 
         "MCs": 2500, 
-        "carrinho": {}
+        "carrinho": {},
+        "endereco": {
+            "estado": 'estado',
+            "rua": 'rua',
+            "numero": 'numero',
+            "complemento": 'complemento',
+            "cep": 'cep'
+        }
     }
 }

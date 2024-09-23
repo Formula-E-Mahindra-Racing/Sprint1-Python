@@ -55,6 +55,17 @@ Se a entrada for inválida, imprime uma mensagem de erro (`msg_erro`) e limpa a 
 <hr>
 
 ```c
+def meu_index(lista, buscar):
+    for i in range(len(lista)):
+        elem = lista[i]
+        if elem == buscar:
+            return i
+    return False
+```
+Essa função `meu_index` procura por um elemento em uma lista e retorna a posição (índice) dele, caso o encontre. Se o elemento não estiver na lista, a função retorna `False`.
+<hr>
+
+```c
 def verifica_numero(msg, msg_erro):
     num = input(msg)
     while not num.isnumeric():
@@ -87,29 +98,45 @@ Retorna a string formatada para possível reutilização.
 
 ```c
 def cadastrar_usuario():
-    username = input("Digite o nome de usuário para cadastro: ")
+    def solicitar_input(mensagem):
+        while True:
+            entrada = input(mensagem).strip()
+            if entrada:
+                return entrada
+            else:
+                print("Este campo não pode ficar vazio.")
+    username = solicitar_input("Digite o nome de usuário para cadastro:\n--> ")
     if username in usuarios:
         print("Usuário já existe!")
         return None  
-    senha = input("Digite sua senha: ")
-    email = input("Digite seu email: ")
-    is_admin = input("O usuário é admin? (s/n): ").lower() == 's'
+    senha = solicitar_input("Digite sua senha:\n--> ")
+    email = solicitar_input("Digite seu email:\n--> ")
+    is_admin = solicitar_input("O usuário é admin? (s/n):\n--> ").lower() == 's'
     if is_admin:
         mcs_inicial = 200000  
     else:
         mcs_inicial = 2500
+
     usuarios[username] = {
         "senha": senha, 
         "email": email, 
         "admin": is_admin, 
+        "primeira_vez": True,
         "saldo_compras": [], 
         "MCs": mcs_inicial, 
-        "carrinho": {}
+        "carrinho": {},
+        "endereco": {
+            "estado": '',
+            "rua": '',
+            "numero": '',
+            "complemento": '',
+            "cep": ''
+        }
     }
     print("Cadastro realizado com sucesso!")
     return login()
 ```
-Solicita dados como nome de usuário, senha e email para cadastrar um novo usuário. Verifica se o nome de usuário já existe no dicionário `usuarios`.
+Solicita dados como nome de usuário, senha e email para cadastrar um novo usuário (Caso for vazio, a função auxiliar retorna a opção novamente.) e verifica se o nome de usuário já existe no dicionário `usuarios`. 
 <br>
 Define um saldo inicial de Mahindra Coins (MCs) de 200.000 para administradores e 2.500 para usuários normais.
 <br>
@@ -118,19 +145,18 @@ Adiciona o novo usuário ao dicionário `usuarios` com suas respectivas informa�
 
 ```c
 def login():
-    username = input("Digite o nome de usuário: ")
+    username = input("Digite o nome de usuário:\n--> ")
     if username not in usuarios:
         print("Usuário não encontrado!")
         return None  
-    senha = input("Digite sua senha: ")
+    senha = input("Digite sua senha:\n--> ")
     if usuarios[username]["senha"] == senha:
-        print(f"Bem-vindo, {username}!")
+        print(f"\nBem-vindo, {username}!")
         return {"username" : username, **usuarios[username]}  
     else:
         print("Senha incorreta!")
         return None
 ```
-
 Solicita o nome de usuário e a senha para login. Verifica se o nome de usuário existe no dicionário `usuarios` e se a senha está correta. Se a autenticação for bem-sucedida, retorna as informações do usuário. Se falhar, exibe mensagens de erro apropriadas.
 <hr>
 
@@ -143,7 +169,14 @@ usuarios = {
         "primeira_vez": True,
         "saldo_compras": [], 
         "MCs": 200000, 
-        "carrinho": {}
+        "carrinho": {},
+        "endereco": {
+            "estado": 'estado',
+            "rua": 'rua',
+            "numero": 'numero',
+            "complemento": 'complemento',
+            "cep": 'cep'
+        }
     },
     "user": {
         "senha": "userpass", 
@@ -152,12 +185,19 @@ usuarios = {
         "primeira_vez": True,
         "saldo_compras": [], 
         "MCs": 2500, 
-        "carrinho": {}
+        "carrinho": {},
+        "endereco": {
+            "estado": 'estado',
+            "rua": 'rua',
+            "numero": 'numero',
+            "complemento": 'complemento',
+            "cep": 'cep'
+        }
     }
 }
 ```
 
-Um dicionário que armazena informações dos usuários, onde as chaves são os nomes de usuário, e os valores são outros dicionários contendo senha, email, permissões de administrador, saldo de compras, Mahindra Coins e o carrinho de compras.
+Um dicionário que armazena informações dos usuários, onde as chaves são os nomes de usuário, e os valores são outros dicionários contendo senha, email, permissões de administrador, primeira vez jogando os minigames, saldo de compras, Mahindra Coins, carrinho de compras e o endereço.
 <hr>
 
 ## Explicando o <a href="https://github.com/Formula-E-Mahindra-Racing/Sprint1-Python/blob/main/app.py">Código</a> 🧑‍💻
@@ -166,17 +206,18 @@ Um dicionário que armazena informações dos usuários, onde as chaves são os 
 from helpers import forca_opcao, limpar_tela
 from sys_functions import sys_dados
 from cadastro_login import cadastrar_usuario, login
-from shop import loja, produtos
+from shop import loja, produtos_disponiveis, produtos
 from games import games_menu
 ```
-Descrição: Importa as funções `forca_opcao` e `limpar_tela` do módulo `helpers`, a função `sys_dados` do módulo `sys_functions`, a função `cadastrar_usuario` e `login` do módulo `cadastro_login`, a função `loja` e o dicionário `produtos` do módulo `shop` e a função `games_menu` do módulo `games`.
+Descrição: Importa as funções `forca_opcao` e `limpar_tela` do módulo `helpers`, a função `sys_dados` do módulo `sys_functions`, a função `cadastrar_usuario` e `login` do módulo `cadastro_login`, a função `loja`, a função `produtos_disponiveis` e o dicionário `produtos` do módulo `shop` e a função `games_menu` do módulo `games`.
 <hr>
 
 ```c
+opcoes = ['0', '1', '2', '3', '4']
 nome_da_empresa = "Mahindra Racing"
 usuario = None  
 while True:
-    limpar_tela()
+    print()
     if usuario:
         print(f"Seja bem-vindo(a), {usuario['username']} à {nome_da_empresa}!")
     else:
@@ -186,21 +227,23 @@ while True:
                           "2 - Dados\n"
                           "3 - Loja\n"
                           "4 - Cadastro/Login\n"
-                          "0 - Sair\n--> ", ['1', '2', '3', '4', '0'], "Opção inválida!")
+                          "0 - Sair\n--> ", opcoes, "Opção inválida!")
     limpar_tela()
     if caminho == '1':
-        games_menu()
+        if usuario:
+            games_menu(usuario)
+        else:
+            print('\nVocê precisa estar logado para jogar.')
     elif caminho == '2':
         sys_dados()
     elif caminho == '3':
         if usuario:
             loja(usuario)
         else:
-            for id_produto, info in produtos.items():
-                print(f"- ID: {id_produto} | {info['nome']} : {info['preco']} MCs (Estoque: {info['estoque']})")
+            produtos_disponiveis()
             print("\nVocê precisa estar logado para acessar as funcionalidades da loja.")
     elif caminho == '4':
-        opcao_login = forca_opcao("1 - Cadastro\n2 - Login\n--> ", ['1', '2'], "Opção inválida!")
+        opcao_login = forca_opcao("1 - Cadastro\n2 - Login\n--> ", opcoes, "Opção inválida!")
         if opcao_login == '1':
             usuario_atual = cadastrar_usuario()
             if usuario_atual:
@@ -454,21 +497,22 @@ Exibe os detalhes de um piloto específico, incluindo equipe, nacionalidade, col
 
 ```c
 def sys_dados():
+    opcoes = ['0', '1', '2', '3']
     print(f"Bem-vindo ao banco de dados Mahindra Racing!")
     while True:
         tipo_dado = forca_opcao("Deseja acessar dados do circuito ou dos pilotos? (1 - Circuito, 2 - Pilotos)\n--> ",
-                                ['1', '2'], "Opção inválida!")
+                                opcoes, "Opção inválida!")
         if tipo_dado == '1':
             print_de_opcoes_circuitos(circuitos)
             circuito_id = forca_opcao("Digite o ID do circuito:\n--> ", circuitos.keys(), "Circuito inválido!")
-            tipo_exibicao = forca_opcao("Você deseja ver opções detalhadas (1) ou específicas (2)?\n--> ", ['1', '2'],
+            tipo_exibicao = forca_opcao("Você deseja ver opções detalhadas (1) ou específicas (2)?\n--> ", opcoes,
                                         "Opção inválida!")
             if tipo_exibicao == '1':
                 exibir_diagrama()
                 exibir_resultado(circuito_id)
             else:
                 dado = forca_opcao("Qual dado específico deseja ver?\n1 - Umidade\n2 - Temperatura\n3 - Proximidade\n--> ",
-                                   ['1', '2', '3'], "Opção inválida!")
+                                   opcoes, "Opção inválida!")
                 if dado == '1':
                     print(f"Umidade: {circuitos[circuito_id]['umidade']}%")
                 elif dado == '2':
@@ -479,11 +523,10 @@ def sys_dados():
             print_de_opcoes_pilotos(pilotos)
             piloto_id = forca_opcao("Digite o ID do piloto:\n--> ", pilotos.keys(), "ID do piloto inválido!")
             exibir_dados_piloto(piloto_id)
-        continuar = forca_opcao("Deseja fazer uma nova pesquisa? (1 - Sim, 0 - Não)\n--> ", ['1', '0'], "Opção inválida!")
+        continuar = forca_opcao("Deseja fazer uma nova pesquisa? (1 - Sim, 0 - Não)\n--> ", opcoes, "Opção inválida!")
         if continuar == '0':
             break
 ```
-
 Uma função de controle principal que permite ao usuário escolher entre visualizar dados de circuitos ou pilotos. Dependendo da escolha do usuário, permite visualizar informações detalhadas ou específicas de um circuito ou piloto.
 <hr>
 
@@ -491,6 +534,16 @@ Uma função de controle principal que permite ao usuário escolher entre visual
 
 Essa seção implementa uma loja virtual para a equipe Mahindra Racing, onde os usuários podem comprar itens como canecas, camisetas e ingressos usando a moeda virtual Mahindra Coins (MC). 
 <br>
+
+```c
+def produtos_disponiveis():
+    print("\nProdutos disponíveis:")
+    for id_produto, info in produtos.items():
+        print(f"{id_produto} - {info['nome']} : {info['preco']} MCs (Estoque: {info['estoque']})")
+```
+
+Printa o catálogo de produtos da loja.
+<hr>
 
 ```c
 def adicionar_ao_carrinho(usuario, id_produto, quantidade):
@@ -504,6 +557,20 @@ Adiciona um produto ao carrinho de compras do usuário. Se o produto já estiver
 
 ```c
 def finalizar_compra(usuario):
+    if not usuario["endereco"].get("estado"):
+        print("Precisamos do seu endereço para concluir a compra.")
+        estado = input("Digite seu Estado:\n--> ")
+        rua = input("Digite sua rua:\n--> ")
+        numero = input("Digite o número da residência:\n--> ")
+        complemento = input("Digite o complemento (deixe em branco se não houver):\n--> ")
+        cep = input("Digite seu CEP:\n--> ")
+        usuario["endereco"] = {
+            "estado": estado,
+            "rua": rua,
+            "numero": numero,
+            "complemento": complemento,
+            "cep": cep
+        }
     total_compra = 0
     itens_comprados = []
     for id_produto, quantidade in usuario["carrinho"].items():
@@ -523,12 +590,16 @@ def finalizar_compra(usuario):
         usuario["MCs"] -= total_compra
         usuario["saldo_compras"].append({"itens": itens_comprados, "total": total_compra})
         usuario["carrinho"] = {}  
+        endereco = usuario["endereco"]
         print(f"Compra realizada com sucesso! Total: {total_compra} MCs")
+        print(f"Seu pedido será enviado para:\n"
+              f"{endereco['rua']}, {endereco['numero']} {endereco['complemento']}\n"
+              f"{endereco['estado']} - CEP: {endereco['cep']}")
     else:
         print("Você não tem Mahindra Coins suficientes para esta compra.")
 ```
 
-Finaliza a compra dos produtos no carrinho do usuário. Verifica se a quantidade de itens no carrinho está disponível no estoque, ajusta o carrinho se necessário e atualiza o estoque.
+Caso o usuário não tenha um endereço cadastrado ele é obrigado a preencher todos os campos e após isso finaliza-se a compra dos produtos no carrinho do usuário. Verifica se a quantidade de itens no carrinho está disponível no estoque, ajusta o carrinho se necessário e atualiza o estoque.
 Deduz o total da compra do saldo de Mahindra Coins (MCs) do usuário, esvaziando o carrinho após a compra.
 <hr>
 
@@ -550,28 +621,25 @@ Exibe as compras passadas do usuário. Para cada compra, exibe os itens comprado
 
 ```c
 def adicionar_produto():
-    id_produto = input("Digite o ID do novo produto: ")
-    nome_produto = input("Digite o nome do novo produto: ")
-    preco = float(input("Digite o preço do produto: "))
-    estoque = int(input("Digite a quantidade em estoque: "))
-    if id_produto in produtos:
-        print("Produto já existe. Use 'modificar' para alterar o produto existente.")
-    else:
-        produtos[id_produto] = {"nome": nome_produto, "preco": preco, "estoque": estoque}
-        print(f"Produto {nome_produto} adicionado com sucesso!")
+    id_produto = str(len(produtos) + 1)
+    nome_produto = input("Digite o nome do novo produto:\n--> ")
+    preco = float(input("Digite o preço do produto:\n--> "))
+    estoque = int(input("Digite a quantidade em estoque:\n--> "))
+    produtos[id_produto] = {"nome": nome_produto, "preco": preco, "estoque": estoque}
+    print(f"Produto {nome_produto} adicionado com sucesso!")
 ```
 
 Permite a um administrador adicionar um novo produto à loja, solicitando ID, nome, preço e estoque.
 <hr>
 
 ```c
-def modificar_estoque():
-    id_produto = input("Digite o ID do produto que deseja modificar o estoque: ")
+def modificar_produto():
+    id_produto = input("Digite o ID do produto que deseja modificar o estoque:\n--> ")
     if id_produto in produtos:
-        novo_estoque = int(input("Digite a nova quantidade em estoque: "))
+        novo_estoque = int(input("Digite a nova quantidade em estoque:\n--> "))
         produtos[id_produto]["estoque"] = novo_estoque
         print(f"Estoque do produto {produtos[id_produto]['nome']} atualizado para {novo_estoque}.")
-        novo_preco = float(input("Digite o novo preço: "))
+        novo_preco = float(input("Digite o novo preço:\n--> "))
         produtos[id_produto]["preco"] = novo_preco
         print(f"Preço do produto {produtos[id_produto]['nome']} atualizado para {novo_preco}.")
     else:
@@ -582,53 +650,79 @@ Permite a um administrador modificar o estoque e o preço de um produto existent
 <hr>
 
 ```c
+def remover_produto():
+    id_produto = input("Digite o ID do produto que deseja remover:\n--> ")
+    if id_produto in produtos:
+        nome_produto = produtos[id_produto]["nome"]
+        del produtos[id_produto]
+        print(f"Produto '{nome_produto}' removido com sucesso!")
+        novos_produtos = {}
+        for novo_id, dados in enumerate(produtos.values(), start=1):
+            novos_produtos[str(novo_id)] = dados
+        produtos.clear()
+        produtos.update(novos_produtos)
+    else:
+        print("Produto não encontrado.")
+```
+
+Permite a um administrador remover um produto existente.
+<hr>
+
+```c
+def admin_zone():
+    opcao_crud_admin = ["adicionar", "modificar", "remover"]
+    admin_opcao = forca_opcao("Você deseja adicionar, modificar ou remover produtos? (s/n):\n--> ", ['s', 'n'], "Opção inválida!").lower()
+    if admin_opcao == 's':
+        admin_action = forca_opcao("Digite 'adicionar' para adicionar produtos, 'modificar' para alterar produto existente e 'remover' para remover produto:\n--> ", 
+                                    opcao_crud_admin, "Opção inválida").lower()
+        if admin_action == "adicionar":
+            adicionar_produto()
+        elif admin_action == "modificar":
+            modificar_produto()
+        elif admin_action == "remover":
+            remover_produto()
+        produtos_disponiveis()
+```
+
+Área de funcionalidades de um administrador onde funções anteriormente mencionadas são chamadas dependendo com a escolha do administrador.
+<hr>
+
+```c
 def loja(usuario):
     print(f"Bem-vindo à loja da Mahindra Racing, {usuario['username']}!")
     print(f"Seu saldo atual é: {usuario['MCs']} MCs")
     while True:
-        print("\nProdutos disponíveis:")
-        for id_produto, info in produtos.items():
-            print(f"- ID: {id_produto} | {info['nome']} : {info['preco']} MCs (Estoque: {info['estoque']})")
+        produtos_disponiveis()
         if usuario["admin"]:
-            admin_opcao = input("Você deseja adicionar ou modificar produtos? (s/n): ").lower()
-            if admin_opcao == 's':
-                admin_action = input("Digite 'adicionar' para adicionar produtos ou 'modificar' para alterar estoque: ").lower()
-                if admin_action == "adicionar":
-                    adicionar_produto()
-                elif admin_action == "modificar":
-                    modificar_estoque()
-        while True:
-            for id_produto, info in produtos.items():
-                print(f"- ID: {id_produto} | {info['nome']} : {info['preco']} MCs (Estoque: {info['estoque']})")
-            escolha = input("\nDigite o ID do produto que deseja comprar, 'compras' para ver suas compras, ou 'sair' para sair: ").lower()
-            if escolha == "sair":
-                print("Saindo da loja...")
-                return
-            if escolha == "compras":
-                exibir_compras_passadas(usuario)
-                continue
-            if escolha in produtos:
-                try:
-                    quantidade = int(input(f"Quantas unidades de {produtos[escolha]['nome']} você deseja adicionar ao carrinho? "))
-                except ValueError:
-                    print("Por favor, insira um número válido para a quantidade.")
-                    continue
-                if quantidade <= produtos[escolha]["estoque"]:
-                    adicionar_ao_carrinho(usuario, escolha, quantidade)
-                    print(f"{quantidade} unidade(s) de {produtos[escolha]['nome']} adicionada(s) ao carrinho.")
-                else:
-                    print("Quantidade em estoque insuficiente.")
-            else:
-                print("Produto não encontrado.")
-            continuar = input("Deseja continuar comprando? (s/n): ").lower()
-            if continuar == 'n':
-                finalizar_compra(usuario)
-                break 
+            admin_zone()
+        escolha = input("Digite o ID do produto que deseja comprar, 'compras' para ver suas compras, ou 'sair' para sair:\n--> ").lower()
         if escolha == "sair":
+            print("Saindo da loja...")
+            return
+        if escolha == "compras":
+            exibir_compras_passadas(usuario)
+            continue
+        if escolha in produtos:
+            try:
+                quantidade = int(input(f"Quantas unidades de {produtos[escolha]['nome']} você deseja adicionar ao carrinho?\n--> "))
+            except ValueError:
+                print("Por favor, insira um número válido para a quantidade.")
+                continue
+            if quantidade <= produtos[escolha]["estoque"]:
+                adicionar_ao_carrinho(usuario, escolha, quantidade)
+                print(f"{quantidade} unidade(s) de {produtos[escolha]['nome']} adicionada(s) ao carrinho.")
+            else:
+                print("Quantidade em estoque insuficiente.")
+        else:
+            print("Produto não encontrado.")
+            continue
+        continuar = forca_opcao("Deseja continuar comprando? (s/n):\n--> ", ['s', 'n'], "Opção inválida!").lower()
+        if continuar == 'n':
+            finalizar_compra(usuario)
             break
 ```
 
-Exibe a loja, mostrando os produtos disponíveis com seus respectivos preços e quantidades em estoque. Se o usuário for um administrador, oferece opções de adicionar ou modificar produtos.
+Exibe a loja, mostrando os produtos disponíveis com seus respectivos preços e quantidades em estoque além de conter as funcionalidades dela. Se o usuário for um administrador, opções adicionais serão mostrados, como adicionar, modificar ou remover produtos.
 <hr>
 
 ```c
