@@ -739,4 +739,4 @@ produtos = {
 Um dicionário que armazena o catálogo de produtos da loja virtual, onde as chaves são os IDs do respectivo produto, e os valores são outros dicionários contendo nome, preço e estoque do produto.
 <hr>
 
-<center>Este projeto encontra sob a <a href="path">MIT License.</a></center>
+<center>Este projeto encontra sob a <a href="https://github.com/Formula-E-Mahindra-Racing/Sprint1-Python/blob/main/LICENSE">MIT License.</a></center>
